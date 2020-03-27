@@ -2,7 +2,9 @@ package readhead.factory;
 
 import readhead.ReadHead;
 
-public interface ReadHeadFactory {
+public class ReadHeadFactory {
 
-	public ReadHead createReaderFromFile(String filePath);
+	public static ReadHead createReaderFromFile(String filePath) {
+		return null;
+	};
 }

@@ -9,7 +9,6 @@ import dfa.factory.CreateDFA;
 import exception.RecognizeException;
 import readhead.ReadHead;
 import readhead.factory.ReadHeadFactory;
-import readhead.factory.ReadHeadFactoryImp;
 import token.Token;
 
 public class LexicalAnalyzer {
@@ -31,8 +30,7 @@ public class LexicalAnalyzer {
 	}
 	
 	public void setReadHeadFromFile(String readHeadFile) {
-		ReadHeadFactory readHeadFactory = new ReadHeadFactoryImp();
-		readHead = readHeadFactory.createReaderFromFile(readHeadFile);
+		readHead = ReadHeadFactory.createReaderFromFile(readHeadFile);
 	}
 	
 	private void defaultInit() throws FileNotFoundException, RecognizeException {
