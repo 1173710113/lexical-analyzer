@@ -1,7 +1,5 @@
 package dfa;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.List;
 
 import exception.dfa.DFAException;
@@ -47,8 +45,8 @@ public class DFA {
 		char[] s = str.toCharArray();
 		for (char c : s) {
 			try {
-			currentState = table.convert(currentState, c);}
-			catch(DFAException e) {
+				currentState = table.convert(currentState, c);
+			} catch (DFAException e) {
 				return false;
 			}
 		}
@@ -58,11 +56,11 @@ public class DFA {
 	public boolean isCurrentAcceptable() {
 		return endStates.contains(currentState);
 	}
-	
+
 	public boolean isAcceptable(String state) {
 		return endStates.contains(state);
 	}
-	
+
 	public void setStateToStartState() {
 		currentState = startState;
 	}
@@ -70,12 +68,23 @@ public class DFA {
 	public String getCurrentState() {
 		return currentState;
 	};
-	
+
 	public String getStartState() {
 		return startState;
 	}
 
 	public void inputChar(Character c) throws InValidInputException, NullConvertionException {
-		currentState = table.convert(currentState, c);
+
+		try {
+			currentState = table.convert(currentState, c);
+		} catch (InValidInputException e) {
+			if(currentState.equals("30")) return;
+			if(currentState.equals("29"))return;
+			if(currentState.equals("25")) {
+				currentState = "26";
+				return;
+			}
+			throw new InValidInputException();
+		}
 	}
 }

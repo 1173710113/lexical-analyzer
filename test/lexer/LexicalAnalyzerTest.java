@@ -1,7 +1,5 @@
 package lexer;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.io.FileNotFoundException;
 
 import org.junit.jupiter.api.Test;
@@ -14,6 +12,7 @@ class LexicalAnalyzerTest {
 	void test() throws FileNotFoundException, RecognizeException {
 		LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzer();
 		lexicalAnalyzer.lexicalAnalyse();
+		System.out.println(lexicalAnalyzer.getResultToken());
 	}
 
 }

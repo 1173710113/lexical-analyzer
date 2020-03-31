@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dfa.DFA;
+import dfa.StateConverter;
+import dfa.StateConverterImp;
 import dfa.factory.CreateDFA;
 import exception.dfa.InValidInputException;
 import exception.dfa.NullConvertionException;
@@ -18,15 +20,19 @@ public class LexicalAnalyzer {
 	private static final String defaultReadHeadFile = "G:\\eclipse-workspace\\lexical analyzer\\text\\’˝»∑≤‚ ‘.txt";
 	private DFA dfa = null;
 	private ReadHead readHead = null;
+	List<Token> tokenList = new ArrayList<Token>();
 
-	public List<Token> lexicalAnalyse() throws FileNotFoundException, RecognizeException {
+	public void lexicalAnalyse() throws FileNotFoundException, RecognizeException {
+		tokenList.clear();
 		defaultInit();
-		List<Token> tokenList = new ArrayList<>();
 		while (readHead.hasNextChar()) {
 			readHead.skipBlank();
 			dfa.setStateToStartState();
 			readToken();
 		}
+	}
+	
+	public List<Token> getResultToken(){
 		return tokenList;
 	}
 	
@@ -49,8 +55,11 @@ public class LexicalAnalyzer {
 				break;
 			}
 		}
-		System.out.println(
-				stringBuilder.toString() + " state:" + dfa.getCurrentState() + " " + dfa.isCurrentAcceptable());
+		if(dfa.isCurrentAcceptable()) {
+			StateConverter stateConverter = new StateConverterImp();
+			tokenList.add(stateConverter.stateConverToToken(dfa.getCurrentState(), stringBuilder.toString()));
+			
+		} 
 	}
 	
 	private void errorInput(Character c) {

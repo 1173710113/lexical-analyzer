@@ -29,11 +29,12 @@ class DFATest {
 		String fileName = "G:\\eclipse-workspace\\lexical analyzer\\text\\text2.txt";
 		List<String> strList = Arrays.asList("=", ";", "[", "]", "{", "}", "(", ")", ",", "+", "-", "*", "/", "%", "++",
 				"--", "+=", "-=", "/=", "%=", "&", "^", "|", "&=", "^=", "|=", "==", "&&", "||", "!", "!=", ">", ">>",
-				">>=", "<", "<<", "<<=","0","012","0102","0x4d","0.5","0.5E-2","hda","?","'a'","/*45	646*    ***/","\"hdkaj456F	FF?>>>>hd\"");
+				">>=", "<", "<<", "<<=","0","012","0102","0x4d","0.5","0.5E-2","hda","?","'a'","/*45	646*    ***/","\"hdkaj456F	FF?>>>>hd\"","Adda","4556",">=","<=");
 		DFA dfa = c.createDFAByFile(fileName);
 		for (String str : strList) {
-			System.out.println(str);
+			System.out.print(str + ":");
 			assertTrue(dfa.testify(str));
+			System.out.println(dfa.getCurrentState());
 		}
 	}
 

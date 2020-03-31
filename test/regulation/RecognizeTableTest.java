@@ -69,16 +69,5 @@ class RecognizeTableTest {
 		}
 	}
 	
-	@Test
-	void test4() throws RecognizeConvertionException, InValidInputException, NullConvertionException {
-		ConversionTable c = r.recognize(str4);
-		int l1 = states4.size();
-		int l2 = inputs4.size();
-		for (int i = 0; i < l1; i++) {
-			for (int j = 0; j < l2; j++) {
-				assertEquals(table4[i][j], c.convert(states4.get(i), inputs4.get(j)));
-			}
-		}
-	}
 
 }

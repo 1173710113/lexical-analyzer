@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 
 public class UI{
 	public static void main(String[] args){
-		UI ui = new UI();
+		new UI();
 	}
 	public UI() {
 		// TODO Auto-generated constructor stub
