@@ -4,6 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
+import exception.dfa.DFAException;
+import exception.dfa.InValidInputException;
+import exception.dfa.NullConvertionException;
+
 public class DFA {
 
 	private List<String> states;
@@ -11,7 +15,7 @@ public class DFA {
 	private List<String> endStates;
 	private List<Character> inputs;
 	private ConversionTable table;
-	private String currentState;
+	private String currentState = startState;
 
 	public DFA setStates(List<String> states) {
 		this.states = states;
@@ -38,20 +42,25 @@ public class DFA {
 		return this;
 	}
 
-	public boolean testify(String str) {
+	public boolean testify(String str) throws InValidInputException {
 		setStateToStartState();
 		char[] s = str.toCharArray();
 		for (char c : s) {
-			assertTrue(inputs.contains(c));
-			currentState = table.convert(currentState, c);
-			if (currentState == null)return false;
+			try {
+			currentState = table.convert(currentState, c);}
+			catch(DFAException e) {
+				return false;
+			}
 		}
-		return isAcceptable();
+		return isCurrentAcceptable();
 	}
 
-	public boolean isAcceptable() {
-		if (endStates.contains(currentState))return true;
-		return false;
+	public boolean isCurrentAcceptable() {
+		return endStates.contains(currentState);
+	}
+	
+	public boolean isAcceptable(String state) {
+		return endStates.contains(state);
 	}
 	
 	public void setStateToStartState() {
@@ -61,10 +70,12 @@ public class DFA {
 	public String getCurrentState() {
 		return currentState;
 	};
+	
+	public String getStartState() {
+		return startState;
+	}
 
-	public void inputChar(Character c) {
-		assertTrue(inputs.contains(c));
+	public void inputChar(Character c) throws InValidInputException, NullConvertionException {
 		currentState = table.convert(currentState, c);
-		assertTrue(states.contains(currentState));
 	}
 }

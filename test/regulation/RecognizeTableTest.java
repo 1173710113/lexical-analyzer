@@ -8,7 +8,9 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import dfa.ConversionTable;
-import exception.RecognizeConvertionException;
+import exception.dfa.InValidInputException;
+import exception.dfa.NullConvertionException;
+import exception.recognize.RecognizeConvertionException;
 
 class RecognizeTableTest {
 
@@ -32,7 +34,7 @@ class RecognizeTableTest {
 	
 
 	@Test
-	void test1() throws RecognizeConvertionException {
+	void test1() throws RecognizeConvertionException, InValidInputException, NullConvertionException {
 		ConversionTable c = r.recognize(str1);
 		int l1 = states1.size();
 		int l2 = inputs1.size();
@@ -44,7 +46,7 @@ class RecognizeTableTest {
 	}
 
 	@Test
-	void test2() throws RecognizeConvertionException {
+	void test2() throws RecognizeConvertionException, InValidInputException, NullConvertionException {
 		ConversionTable c = r.recognize(str2);
 		int l1 = states2.size();
 		int l2 = inputs2.size();
@@ -56,7 +58,7 @@ class RecognizeTableTest {
 	}
 	
 	@Test
-	void test3() throws RecognizeConvertionException {
+	void test3() throws RecognizeConvertionException, InValidInputException, NullConvertionException {
 		ConversionTable c = r.recognize(str3);
 		int l1 = states3.size();
 		int l2 = inputs3.size();
@@ -68,7 +70,7 @@ class RecognizeTableTest {
 	}
 	
 	@Test
-	void test4() throws RecognizeConvertionException {
+	void test4() throws RecognizeConvertionException, InValidInputException, NullConvertionException {
 		ConversionTable c = r.recognize(str4);
 		int l1 = states4.size();
 		int l2 = inputs4.size();

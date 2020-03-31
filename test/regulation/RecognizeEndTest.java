@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import exception.RecognizeEndException;
+import exception.recognize.RecognizeEndException;
 
 class RecognizeEndTest{
 

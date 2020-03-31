@@ -3,7 +3,7 @@ package regulation;
 import java.util.List;
 
 import dfa.ConversionTable;
-import exception.RecognizeConvertionException;
+import exception.recognize.RecognizeConvertionException;
 
 public interface RecognizeConvertion {
 

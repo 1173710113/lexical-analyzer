@@ -2,7 +2,7 @@ package regulation;
 
 import java.util.List;
 
-import exception.RecognizeStatesException;
+import exception.recognize.RecognizeStatesException;
 
 public interface RecognizeStates {
 

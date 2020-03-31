@@ -3,6 +3,9 @@ package dfa;
 import java.util.HashMap;
 import java.util.Map;
 
+import exception.dfa.InValidInputException;
+import exception.dfa.NullConvertionException;
+
 public class ConversionTableImp implements ConversionTable{
 
 	private Map<String, Integer> states;
@@ -10,8 +13,11 @@ public class ConversionTableImp implements ConversionTable{
 	private String[][] table;
 	
 	@Override
-	public String convert(String state, Character symbol) {
-		return table[states.get(state)][symbols.get(symbol)];
+	public String convert(String state, Character symbol) throws InValidInputException, NullConvertionException {
+		if(!symbols.containsKey(symbol))throw new InValidInputException();
+		String nextState = table[states.get(state)][symbols.get(symbol)];
+		if(nextState==null)throw new NullConvertionException();
+		return nextState;
 	}
 	
 	public ConversionTableImp(int row, int column) {

@@ -3,7 +3,7 @@ package dfa.factory;
 import java.io.FileNotFoundException;
 
 import dfa.DFA;
-import exception.RecognizeException;
+import exception.recognize.RecognizeException;
 
 public interface CreateDFA {
 

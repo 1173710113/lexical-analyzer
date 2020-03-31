@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import exception.RecognizeStatesException;
+import exception.recognize.RecognizeStatesException;
 
 
 public class RecognizeStatesImp implements RecognizeStates{

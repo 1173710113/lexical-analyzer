@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import exception.RecognizeInputException;
+import exception.recognize.RecognizeInputException;
 
 public class RecognizeInputImp implements RecognizeInput {
 

@@ -1,6 +1,6 @@
 package regulation;
 
-import exception.RecognizeStartException;
+import exception.recognize.RecognizeStartException;
 
 public interface RecognizeStart {
 

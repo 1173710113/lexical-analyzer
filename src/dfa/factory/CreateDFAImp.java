@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 import dfa.DFA;
-import exception.RecognizeException;
+import exception.recognize.RecognizeException;
 import filereader.InputStrategy;
 import regulation.RecognizeConvertion;
 import regulation.RecognizeEnd;

@@ -1,4 +1,6 @@
-package exception;
+package exception.recognize;
+
+import exception.MyException;
 
 public class RecognizeException extends MyException{
 

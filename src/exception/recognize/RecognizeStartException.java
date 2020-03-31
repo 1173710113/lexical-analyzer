@@ -1,4 +1,4 @@
-package exception;
+package exception.recognize;
 
 public class RecognizeStartException extends RecognizeException{
 

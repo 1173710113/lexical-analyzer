@@ -11,6 +11,19 @@ public interface ReadHead {
 	
 	/**
 	 * 
+	 * @return
+	 */
+	public boolean hasNextChar();
+	
+	/**
+	 * 
+	 * @param c
+	 * @return
+	 */
+	public boolean isNextLineChar(Character c);
+	
+	/**
+	 * 
 	 * @param stepSize
 	 */
 	public void rollBack(int stepSize);
@@ -19,12 +32,5 @@ public interface ReadHead {
 	 * 
 	 */
 	public void skipBlank();
-	
-	/**
-	 * 
-	 * @return 
-	 */
-	public boolean isEnd();
-	
 	
 }

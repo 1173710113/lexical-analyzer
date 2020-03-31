@@ -8,8 +8,15 @@ class SimpleTest {
 
 	@Test
 	void test1() {
-		String str = "        ";
-		assertEquals("", str.trim());
+		String str = "	";
+		assertEquals(1, str.length());
+	}
+	
+	@Test
+	void test2(){
+		String expected = "blank|split|tab";
+		String actual = SpecialSymbolTable.getSpecialSymbolPattern();
+		assertEquals(expected, actual);
 	}
 
 }

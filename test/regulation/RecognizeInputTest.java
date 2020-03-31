@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import exception.RecognizeInputException;
+import exception.recognize.RecognizeInputException;
 
 class RecognizeInputTest {
 
@@ -100,6 +100,14 @@ class RecognizeInputTest {
 	void testMutipleInputsAndCommaInFront() throws RecognizeInputException {
 		String str = "<input>:,,a";
 		List<Character> expected = Arrays.asList(',', 'a');
+		List<Character> actual = r.recognize(str);
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testMultipulInputsAndTabInLast() throws RecognizeInputException {
+		String str = "<input>:a,b,	";
+		List<Character> expected = Arrays.asList('a','b','	');
 		List<Character> actual = r.recognize(str);
 		assertEquals(expected, actual);
 	}

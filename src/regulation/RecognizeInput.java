@@ -2,7 +2,7 @@ package regulation;
 
 import java.util.List;
 
-import exception.RecognizeInputException;
+import exception.recognize.RecognizeInputException;
 
 public interface RecognizeInput {
 

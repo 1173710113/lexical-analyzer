@@ -1,4 +1,4 @@
-package exception;
+package exception.recognize;
 
 public class RecognizeConvertionException extends RecognizeException{
 

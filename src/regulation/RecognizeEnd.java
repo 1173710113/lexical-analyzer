@@ -2,7 +2,7 @@ package regulation;
 
 import java.util.List;
 
-import exception.RecognizeEndException;
+import exception.recognize.RecognizeEndException;
 
 public interface RecognizeEnd {
 
