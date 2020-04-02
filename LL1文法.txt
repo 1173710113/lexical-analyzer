@@ -1,36 +1,36 @@
-Program->P           /*³ÌÐòÈë¿Ú*/
+Program->P           /*ç¨‹åºå…¥å£*/
 P->D P|S P|empty 
     
-D->T id A;|record id { P }   /*±äÁ¿ÉùÃ÷£¬¼ÇÂ¼ÉùÃ÷*/
-A->= F A|empty|, id A        /*ÉùÃ÷Ê±¸³Öµ£¬Á¬ÐøÉùÃ÷*/
+D->T id A;|record id { P }   /*å˜é‡å£°æ˜Žï¼Œè®°å½•å£°æ˜Ž*/
+A->= F A|empty|, id A        /*å£°æ˜Žæ—¶èµ‹å€¼ï¼Œè¿žç»­å£°æ˜Ž*/
 T->X C
-X->int|real|char	     /*ÔÊÐí±äÁ¿ÉùÃ÷µÄÀàÐÍ*/
-C->[ num ] C|empty	     /*ÉùÃ÷Êý×éÀàÐÍ£¬ÔÊÐí¶àÎ¬*/
+X->int|real|char	     /*å…è®¸å˜é‡å£°æ˜Žçš„ç±»åž‹*/
+C->[ num ] C|empty	     /*å£°æ˜Žæ•°ç»„ç±»åž‹ï¼Œå…è®¸å¤šç»´*/
 
-S->L = E ;|if B then S else S|while B do S /*¸³ÖµÓï¾ä£¬·ÖÖ§Óï¾ä£¬Ñ­»·Óï¾ä*/
-E->G E'			     	/*±í´ïÊ½*/
+S->L = E ;|if B then S else S|while B do S /*èµ‹å€¼è¯­å¥ï¼Œåˆ†æ”¯è¯­å¥ï¼Œå¾ªçŽ¯è¯­å¥*/
+E->G E'			     	/*è¡¨è¾¾å¼*/
 E'->+ G E'|empty
 G->F G'
 G'->* F G'|empty
 F->( E )|id|digit|char
-L->id L'		/*¶Ô±äÁ¿»òÊÇÊý×é½øÐÐ¸³Öµ*/
+L->id L'		/*å¯¹å˜é‡æˆ–æ˜¯æ•°ç»„è¿›è¡Œèµ‹å€¼*/
 L'->[ num ] L'|empty
 
-S->for ( id = E ; B ; id V ) { S } /*forÓï¾ä*/
-V->++|--			   /*++Óï¾äºÍ--Óï¾ä*/
-S->switch ( id ) { N default : S } /*switchÓï¾ä*/
-N->case digit : S N|empty    	   /*switchÓï¾äÄÚ²¿½á¹¹*/	
+S->for ( id = E ; B ; id V ) { S } /*forè¯­å¥*/
+V->++|--			   /*++è¯­å¥å’Œ--è¯­å¥*/
+S->switch ( id ) { N default : S } /*switchè¯­å¥*/
+N->case digit : S N|empty    	   /*switchè¯­å¥å†…éƒ¨ç»“æž„*/	
 
-B->H B'			/*Âß¼­±í´ïÊ½*/
+B->H B'			/*é€»è¾‘è¡¨è¾¾å¼*/
 B'->or H B'|empty
 H->I H'
 H'->and I H'|empty
 I->not B|( B )|E relop E|true|false
 relop-><|<=|==|!=|>|>=
 
-D->proc X id ( M ) { P }   /*º¯ÊýÉùÃ÷*/
-M->X id M'|empty      	   /*²ÎÊýÀàÐÍÉùÃ÷*/
+D->proc X id ( M ) { P }   /*å‡½æ•°å£°æ˜Ž*/
+M->X id M'|empty      	   /*å‚æ•°ç±»åž‹å£°æ˜Ž*/
 M'->, X id M'|empty
-S->call id ( Elist ) ;|return E ;    /*º¯Êýµ÷ÓÃºÍ·µ»ØÖµ*/
+S->call id ( Elist ) ;|return E ;    /*å‡½æ•°è°ƒç”¨å’Œè¿”å›žå€¼*/
 Elist->E Elist'
 Elist'->, E Elist'|empty

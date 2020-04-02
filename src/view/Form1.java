@@ -37,13 +37,13 @@ public class Form1 extends JFrame implements ActionListener{
 	public void initPanel() {
 		main_panel = new JPanel();
 		main_panel.setLayout(null);
-		lb_lexical = new JLabel("è¯æ³•è§„åˆ™");
+		lb_lexical = new JLabel("´Ê·¨¹æÔò");
 		main_panel.add(lb_lexical);
 		lb_lexical.setBounds(715, 10, 70, 20);
-		lb_regulation = new JLabel("è¯æ³•è§„åˆ™");
+		lb_regulation = new JLabel("´Ê·¨¹æÔò");
 		main_panel.add(lb_regulation);
 		lb_regulation.setBounds(350, 50, 70, 20);
-		lb_DFA = new JLabel("DFAè½¬æ¢è¡¨");
+		lb_DFA = new JLabel("DFA×ª»»±í");
 		main_panel.add(lb_DFA);
 		lb_DFA.setBounds(1100, 50, 70, 20);
 		
@@ -65,13 +65,12 @@ public class Form1 extends JFrame implements ActionListener{
 	}
 	
 	public void addDFA() {
-		DFATitle = new String[] {"æ•°æ®","å†…å®¹","1","2","3","4","5","6","7","8","9","10"};
-		DFAData = new String[][] {{"ç¼–å·ä¸€","æ•°æ®ä¸€","1","2","3","4","5","6","7","8","9","10"}};
+		DFATitle = new String[] {"Êı¾İ","ÄÚÈİ","1","2","3","4","5","6","7","8","9","10"};
+		DFAData = new String[][] {{"±àºÅÒ»","Êı¾İÒ»","1","2","3","4","5","6","7","8","9","10"}};
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO è‡ªåŠ¨ç”Ÿæˆçš„æ–¹æ³•å­˜æ ¹
 		
 	}
 
