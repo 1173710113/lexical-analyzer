@@ -3,6 +3,7 @@ package view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import javax.swing.JFileChooser;
@@ -16,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import exception.dfa.InValidInputException;
+import exception.recognize.RecognizeException;
 import filereader.InputStrategy;
 
 class MainForm extends JFrame implements ActionListener {
@@ -87,11 +90,18 @@ class MainForm extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == lexical_regulation) {
-			Form1 form1 = new Form1();
-			form1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			form1.setResizable(false);
-			form1.setVisible(true);
+			Form1 form1;
+			try {
+				form1 = new Form1();
+				form1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				form1.setResizable(false);
+				form1.setVisible(true);
 
+			} catch (FileNotFoundException | RecognizeException | InValidInputException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		
 		} else if (e.getSource() == lexical_analysis) {
 			if (ta_input.getText().equals("")) {
 				JOptionPane.showMessageDialog(main_panel, "您什么都没输入", "error", JOptionPane.ERROR_MESSAGE);

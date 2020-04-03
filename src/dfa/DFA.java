@@ -19,6 +19,10 @@ public class DFA {
 		this.states = states;
 		return this;
 	}
+	
+	public List<String> getStates(){
+		return states;
+	}
 
 	public DFA setStartState(String startState) {
 		this.startState = startState;
@@ -34,10 +38,18 @@ public class DFA {
 		this.inputs = inputs;
 		return this;
 	}
+	
+	public List<Character> getInputs(){
+		return inputs;
+	}
 
 	public DFA setConversionTable(ConversionTable table) {
 		this.table = table;
 		return this;
+	}
+	
+	public ConversionTable getConversionTable() {
+		return table;
 	}
 
 	public boolean testify(String str) throws InValidInputException {
