@@ -36,8 +36,11 @@ public class Form1 extends JFrame implements ActionListener {
 
 	private Character[] DFATitle;
 	private String[][] DFAData;
+	
+	private String file_name;
 
-	public Form1() throws FileNotFoundException, RecognizeException, InValidInputException {
+	public Form1(String file_name) throws FileNotFoundException, RecognizeException, InValidInputException {
+		this.file_name = file_name;
 		this.setTitle("Form1");
 		this.setSize(1500, 800);
 		initPanel();
@@ -104,7 +107,7 @@ public class Form1 extends JFrame implements ActionListener {
 
 	// 添加词法规则数据
 	public void addregulation() {
-
+		
 	}
 
 	@Override

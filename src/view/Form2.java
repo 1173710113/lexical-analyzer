@@ -2,6 +2,9 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+
+import lexer.*;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -27,15 +30,18 @@ public class Form2 extends JFrame implements ActionListener{
 	private JTable tb_DFA;
 	private JTable tb_error;
 	
-	private String[] unitTitle = {"内容一","内容二","内容三","内容四"};
-	private String[][] unitData = {{"1","2","3","4"}};
+	private String[] unitTitle = {"输入项","token序列","类型","行号"};
+	private String[][] unitData ;
 	private String[] DFATitle = {"内容一","内容二"};
 	private String[][] DFAData = {{"1","2"}};
 	private String[] errorTitle = {"内容一","内容二","内容三"};
 	private String[][] errorData = {{"1","2","3"}};
 	
+	private String file_name;
 	
-	public Form2(){
+	
+	public Form2(String file_name){
+		this.file_name = file_name;
 		this.setTitle("Form2");
 		this.setSize(1800,900);
 		initPanel();
@@ -59,6 +65,7 @@ public class Form2 extends JFrame implements ActionListener{
 		lb_error.setBounds(1475, 50, 70, 20);
 		
 		addDFA();
+		addUnit();
 		
 		tb_unit = new JTable(unitData,unitTitle);
 //		tb_unit.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -92,7 +99,7 @@ public class Form2 extends JFrame implements ActionListener{
 	
 	//添加token序列数据
 	public void addUnit() {
-		
+		LexicalAnalyzer lexicalanalyzer = new LexicalAnalyzer();
 	}
 	
 	//添加错误数据
