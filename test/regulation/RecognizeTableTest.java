@@ -27,10 +27,6 @@ class RecognizeTableTest {
 	private List<String> states3 = Arrays.asList("0", "1", "2", "3");
 	private List<Character> inputs3 = Arrays.asList('|', ' ');
 	private String[][] table3 = { { "1", "0" }, { "1", "2" }, { "1", "3" }, { "1", "0" } };
-	private List<String> str4 = Arrays.asList("|      |     split|blank    |", "|0|        |0|", "|   1|1|2|", "|2  |  1|3|", "|3|1|0|");
-	private List<String> states4 = Arrays.asList("0", "1", "2", "3");
-	private List<Character> inputs4 = Arrays.asList('|', ' ');
-	private String[][] table4 = { { null, "0" }, { "1", "2" }, { "1", "3" }, { "1", "0" } };
 	
 
 	@Test

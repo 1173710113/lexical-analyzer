@@ -26,6 +26,17 @@ public class ReadHeadImp implements ReadHead {
 		}
 		text = stringBuilder.toString();
 	}
+	
+	public ReadHeadImp(List<String> stringList) {
+		StringBuilder stringBuilder = new StringBuilder();
+		for (String str : stringList) {
+			if (stringBuilder.length() != 0) {
+				stringBuilder.append(nextLineChar);
+			}
+			stringBuilder.append(str.trim());
+		}
+		text = stringBuilder.toString();
+	}
 
 	@Override
 	public Character nextChar() {

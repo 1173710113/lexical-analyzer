@@ -8,12 +8,12 @@ import exception.dfa.NullConvertionException;
 
 public class DFA {
 
-	private List<String> states;
-	private String startState;
-	private List<String> endStates;
-	private List<Character> inputs;
-	private ConversionTable table;
-	private String currentState = startState;
+	protected List<String> states;
+	protected String startState;
+	protected List<String> endStates;
+	protected List<Character> inputs;
+	protected ConversionTable table;
+	protected String currentState = startState;
 
 	public DFA setStates(List<String> states) {
 		this.states = states;
@@ -74,17 +74,6 @@ public class DFA {
 	}
 
 	public void inputChar(Character c) throws InValidInputException, NullConvertionException {
-
-		try {
-			currentState = table.convert(currentState, c);
-		} catch (InValidInputException e) {
-			if(currentState.equals("30")) return;
-			if(currentState.equals("29"))return;
-			if(currentState.equals("25")) {
-				currentState = "26";
-				return;
-			}
-			throw new InValidInputException();
-		}
+		currentState = table.convert(currentState, c);
 	}
 }

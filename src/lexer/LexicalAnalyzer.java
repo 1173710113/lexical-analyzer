@@ -7,7 +7,7 @@ import java.util.List;
 import dfa.DFA;
 import dfa.StateConverter;
 import dfa.StateConverterImp;
-import dfa.factory.CreateDFA;
+import dfa.factory.DFAFactory;
 import exception.dfa.InValidInputException;
 import exception.dfa.NullConvertionException;
 import exception.recognize.RecognizeException;
@@ -58,12 +58,17 @@ public class LexicalAnalyzer {
 		if(dfa.isCurrentAcceptable()) {
 			StateConverter stateConverter = new StateConverterImp();
 			tokenList.add(stateConverter.stateConverToToken(dfa.getCurrentState(), stringBuilder.toString()));
-			
-		} 
+		} else {
+			errorToken(stringBuilder.toString());
+		}
 	}
 	
 	private void errorInput(Character c) {
 		System.out.println("error input" + c);
+	}
+	
+	private void errorToken(String errorTokenString) {
+		
 	}
 
 	private void defaultInit() throws FileNotFoundException, RecognizeException {
@@ -86,12 +91,16 @@ public class LexicalAnalyzer {
 	}
 
 	public void setDFAFromFile(String dfaFile) throws FileNotFoundException, RecognizeException {
-		CreateDFA dfaCreater = CreateDFA.getInstance();
-		dfa = dfaCreater.createDFAByFile(dfaFile);
+		DFAFactory dfaCreater = DFAFactory.getInstance();
+		dfa = dfaCreater.createLexicalDFAByFile(dfaFile);
 	}
 
 	public void setReadHeadFromFile(String readHeadFile) throws FileNotFoundException {
 		readHead = ReadHeadFactory.createReaderFromFile(readHeadFile);
+	}
+	
+	public void setReadHeadFromStringList(List<String> stringList) {
+		readHead = ReadHeadFactory.createReadHeadFromStringList(stringList);
 	}
 
 }

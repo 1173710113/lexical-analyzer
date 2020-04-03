@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 import dfa.DFA;
+import dfa.LexicalDFA;
 import exception.recognize.RecognizeException;
 import filereader.InputStrategy;
 import regulation.RecognizeConvertion;
@@ -13,16 +14,24 @@ import regulation.RecognizeInput;
 import regulation.RecognizeStart;
 import regulation.RecognizeStates;
 
-public class CreateDFAImp implements CreateDFA{
+public class DFAFactoryImp implements DFAFactory{
 	
 	@Override
 	public DFA createDFAByFile(String fileName) throws FileNotFoundException, RecognizeException {
-		getStringFromFile(fileName);
 		DFAStr dfaStr = getStringFromFile(fileName); 
 		DFA dfa = new DFA();
 		createDFA(dfa, dfaStr);
 		return dfa;
 	}
+	
+	@Override
+	public LexicalDFA createLexicalDFAByFile(String fileName) throws FileNotFoundException, RecognizeException {
+		DFAStr dfaStr = getStringFromFile(fileName); 
+		LexicalDFA dfa = new LexicalDFA();
+		createDFA(dfa, dfaStr);
+		return dfa;
+	}
+	
 	
 	private DFAStr getStringFromFile(String fileName) throws FileNotFoundException {
 		File file = new File(fileName);
@@ -47,5 +56,7 @@ public class CreateDFAImp implements CreateDFA{
 		.setInputs(ri.recognize(dfaStr.getInputStr()))
 		.setConversionTable(rc.recognize(dfaStr.getConvertionStr()));
 	}
+
+
 
 }

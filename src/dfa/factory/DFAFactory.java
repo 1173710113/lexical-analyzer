@@ -3,9 +3,10 @@ package dfa.factory;
 import java.io.FileNotFoundException;
 
 import dfa.DFA;
+import dfa.LexicalDFA;
 import exception.recognize.RecognizeException;
 
-public interface CreateDFA {
+public interface DFAFactory {
 
 	/**
 	 * 读取文件创建DFA
@@ -14,11 +15,13 @@ public interface CreateDFA {
 	 */
 	public DFA createDFAByFile(String fileName) throws FileNotFoundException, RecognizeException;
 	
+	public LexicalDFA createLexicalDFAByFile(String fileName) throws FileNotFoundException, RecognizeException;
+	
 	/**
 	 * 
 	 * @return
 	 */
-	public static CreateDFA getInstance() {
-		return new CreateDFAImp();
+	public static DFAFactory getInstance() {
+		return new DFAFactoryImp();
 	}
 }
