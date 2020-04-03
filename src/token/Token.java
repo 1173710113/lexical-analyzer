@@ -10,6 +10,6 @@ public class Token {
 	
 	@Override
 	public String toString() {
-		return "" + (char)tag;
+		return "<" + (char)tag + ",_>";
 	}
 }

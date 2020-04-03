@@ -10,7 +10,7 @@ public interface ConversionTable {
 	 * 
 	 * @param state  当前状态
 	 * @param symbol 当前输入
-	 * @return 如果没有该项则返回null
+	 * @return
 	 */
 	public String convert(String state, Character symbol) throws InValidInputException, NullConvertionException;
 

@@ -14,16 +14,19 @@ import exception.recognize.RecognizeException;
 import readhead.ReadHead;
 import readhead.factory.ReadHeadFactory;
 import token.Token;
+import token.errorToken.ErrorToken;
 
 public class LexicalAnalyzer {
 	private static final String defaultDFAFile = "G:\\eclipse-workspace\\lexical analyzer\\text\\text2.txt";
 	private static final String defaultReadHeadFile = "G:\\eclipse-workspace\\lexical analyzer\\text\\’˝»∑≤‚ ‘.txt";
 	private DFA dfa = null;
 	private ReadHead readHead = null;
-	List<Token> tokenList = new ArrayList<Token>();
+	List<Token> tokenList = new ArrayList<>();
+	List<ErrorToken> errorTokenList = new ArrayList<>();
 
 	public void lexicalAnalyse() throws FileNotFoundException, RecognizeException {
 		tokenList.clear();
+		errorTokenList.clear();
 		defaultInit();
 		while (readHead.hasNextChar()) {
 			readHead.skipBlank();
@@ -34,6 +37,10 @@ public class LexicalAnalyzer {
 	
 	public List<Token> getResultToken(){
 		return tokenList;
+	}
+	
+	public List<ErrorToken> getErrorToken(){
+		return errorTokenList;
 	}
 	
 	private void readToken() {

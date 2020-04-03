@@ -16,6 +16,6 @@ public class Real extends Token{
 	
 	@Override
 	public String toString() {
-		return "" + value;
+		return "<" + tag +"," + value + ">";
 	}
 }

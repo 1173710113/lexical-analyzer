@@ -27,11 +27,11 @@ public class Form2 extends JFrame implements ActionListener{
 	private JTable tb_DFA;
 	private JTable tb_error;
 	
-	private String[] unitTitle = {"输入项","Token序列","类型","行号"};
+	private String[] unitTitle = {"内容一","内容二","内容三","内容四"};
 	private String[][] unitData = {{"1","2","3","4"}};
-	private String[] DFATitle = {"识别的单词","DFA转换表"};
+	private String[] DFATitle = {"内容一","内容二"};
 	private String[][] DFAData = {{"1","2"}};
-	private String[] errorTitle = {"错误项","错误原因","行数"};
+	private String[] errorTitle = {"内容一","内容二","内容三"};
 	private String[][] errorData = {{"1","2","3"}};
 	
 	
@@ -48,10 +48,10 @@ public class Form2 extends JFrame implements ActionListener{
 		lb_lexical = new JLabel("词法分析");
 		main_panel.add(lb_lexical);
 		lb_lexical.setBounds(875, 10, 70, 20);
-		lb_unit = new JLabel("词法规则");
+		lb_unit = new JLabel("词法单元");
 		main_panel.add(lb_unit);
 		lb_unit.setBounds(275, 50, 70, 20);
-		lb_DFA = new JLabel("DFA转换表");
+		lb_DFA = new JLabel("DFA转换图");
 		main_panel.add(lb_DFA);
 		lb_DFA.setBounds(875, 50, 70, 20);
 		lb_error = new JLabel("词法错误");
@@ -85,8 +85,8 @@ public class Form2 extends JFrame implements ActionListener{
 	}
 	
 	public void addDFA() {
-		DFATitle = new String[] {"数据","内容","1","2","3","4","5","6","7","8","9","10"};
-		DFAData = new String[][] {{"编号一","数据一","1","2","3","4","5","6","7","8","9","10"}};
+		DFATitle = new String[] {"数据一","内容一","1","2","3","4","5","6","7","8","9","10"};
+		DFAData = new String[][] {{"一","二","1","2","3","4","5","6","7","8","9","10"}};
 	}
 	
 	public void addUnit() {
@@ -99,7 +99,7 @@ public class Form2 extends JFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO 自动生成的方法存根
+		
 		
 	}
 

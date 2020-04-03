@@ -8,5 +8,10 @@ public class Char extends Token{
 		super(Tag.CHAR);
 		value = c;
 	}
+	
+	@Override
+	public String toString() {
+		return "<" + tag + "," + value + ">";
+	}
 
 }

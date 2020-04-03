@@ -63,7 +63,7 @@ public class StateConverterImp implements StateConverter{
 		case "24":
 			return new Word(str, Tag.ID);
 		case "27":
-			return new Char(str.charAt(0));
+			return new Char(str.charAt(1));
 		case "29":
 			return new Word(str, Tag.STRING);
 		case "32":
