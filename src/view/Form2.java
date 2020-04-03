@@ -2,15 +2,25 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import lexer.*;
+import token.Token;
+import token.errorToken.ErrorToken;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+
+import dfa.ConversionTable;
+import dfa.DFA;
+import dfa.factory.DFAFactory;
+import exception.dfa.InValidInputException;
+import exception.dfa.NullConvertionException;
+import exception.recognize.RecognizeException;
 
 public class Form2 extends JFrame implements ActionListener{
 
@@ -31,17 +41,18 @@ public class Form2 extends JFrame implements ActionListener{
 	private JTable tb_error;
 	
 	private String[] unitTitle = {"输入项","token序列","类型","行号"};
-	private String[][] unitData ;
-	private String[] DFATitle = {"内容一","内容二"};
+	private String[][] unitData = {{}};
+	private Character[] DFATitle;
 	private String[][] DFAData = {{"1","2"}};
 	private String[] errorTitle = {"内容一","内容二","内容三"};
-	private String[][] errorData = {{"1","2","3"}};
+	private String[][] errorData;
 	
-	private String file_name;
+	private List<String> inputs;
+	private LexicalAnalyzer lexicalAnalyzer;
 	
 	
-	public Form2(String file_name){
-		this.file_name = file_name;
+	public Form2(List<String> inputs){
+		this.inputs = inputs;
 		this.setTitle("Form2");
 		this.setSize(1800,900);
 		initPanel();
@@ -64,8 +75,28 @@ public class Form2 extends JFrame implements ActionListener{
 		main_panel.add(lb_error);
 		lb_error.setBounds(1475, 50, 70, 20);
 		
-		addDFA();
-		addUnit();
+		try {
+			addDFA();
+		} catch (InValidInputException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (RecognizeException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			addUnit();
+			addError();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RecognizeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		tb_unit = new JTable(unitData,unitTitle);
 //		tb_unit.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -92,19 +123,53 @@ public class Form2 extends JFrame implements ActionListener{
 	}
 	
 	//添加DFA转换图数据
-	public void addDFA() {
-		DFATitle = new String[] {"数据一","内容一","1","2","3","4","5","6","7","8","9","10"};
-		DFAData = new String[][] {{"一","二","1","2","3","4","5","6","7","8","9","10"}};
+	public void addDFA() throws FileNotFoundException, RecognizeException, InValidInputException {
+		DFAFactory dfaFactory = DFAFactory.getInstance();
+		String dfaFilePath = "text\\text2.txt";
+		DFA dfa = dfaFactory.createDFAByFile(dfaFilePath);
+		List<Character> inputList = dfa.getInputs();
+		inputList.add(0, ' ');
+		DFATitle = new Character[inputList.size()];
+		inputList.toArray(DFATitle);
+		List<String> statesList = dfa.getStates();
+		DFAData = new String[statesList.size()][inputList.size()];
+		ConversionTable table = dfa.getConversionTable();
+		for (int i = 0; i < statesList.size(); i++) {
+			String state = statesList.get(i);
+			DFAData[i][0] = state;
+			if(dfa.isAcceptable(state)) {
+				DFAData[i][0] += " (终止状态)";
+			}
+			for (int j = 1; j < inputList.size(); j++) {
+				try {
+					DFAData[i][j] = table.convert(state, inputList.get(j));
+				} catch (NullConvertionException e) {
+					DFAData[i][j] = "";
+				} 
+			}
+		}
 	}
 	
 	//添加token序列数据
-	public void addUnit() {
-		LexicalAnalyzer lexicalanalyzer = new LexicalAnalyzer();
+	public void addUnit() throws FileNotFoundException, RecognizeException {
+		lexicalAnalyzer = new LexicalAnalyzer();
+		lexicalAnalyzer.setReadHeadFromStringList(inputs);
+		lexicalAnalyzer.lexicalAnalyse();
+		List<Token> resultToken = lexicalAnalyzer.getResultToken();
+		unitData = new String[resultToken.size()][4];
+		for(int i =0; i < resultToken.size(); i++) {
+			unitData[i][1] = resultToken.get(i).toString();
+		}
+		
 	}
 	
 	//添加错误数据
 	public void addError() {
-		
+		List<ErrorToken> errorTokenList = lexicalAnalyzer.getErrorToken();
+		errorData = new String[errorTokenList.size()][3];
+		for(int i = 0 ; i < errorTokenList.size(); i++) {
+			errorData[i][0] = errorTokenList.get(i).toString();
+		}
 	}
 
 	@Override

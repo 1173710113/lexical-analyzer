@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JFileChooser;
@@ -83,7 +84,7 @@ class MainForm extends JFrame implements ActionListener {
 		scrollpane_input = new JScrollPane(ta_input);
 		main_panel.add(scrollpane_input);
 		scrollpane_input.setBounds(10, 40, 675, 600);
-		ta_input.setEditable(false);
+		ta_input.setEditable(true);
 		// scrollpane_input.setRowHeaderView(new LineNumberHeaderView());
 
 		add(main_panel);
@@ -95,7 +96,7 @@ class MainForm extends JFrame implements ActionListener {
 		if (e.getSource() == lexical_regulation) {
 			Form1 form1;
 			try {
-				form1 = new Form1(file_name);
+				form1 = new Form1();
 				form1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				form1.setResizable(false);
 				form1.setVisible(true);
@@ -110,7 +111,8 @@ class MainForm extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(main_panel, "您什么都没输入", "error", JOptionPane.ERROR_MESSAGE);
 				System.out.println("nothing input!");
 			} else {
-				Form2 form2 = new Form2(file_name);
+				List<String> inputs = Arrays.asList(ta_input.getText().split("\n"));
+				Form2 form2 = new Form2(inputs);
 				form2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				form2.setResizable(false);
 				form2.setVisible(true);

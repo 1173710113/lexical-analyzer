@@ -34,15 +34,15 @@ public class LexicalAnalyzer {
 			readToken();
 		}
 	}
-	
-	public List<Token> getResultToken(){
+
+	public List<Token> getResultToken() {
 		return tokenList;
 	}
-	
-	public List<ErrorToken> getErrorToken(){
+
+	public List<ErrorToken> getErrorToken() {
 		return errorTokenList;
 	}
-	
+
 	private void readToken() {
 		StringBuilder stringBuilder = new StringBuilder();
 		while (readHead.hasNextChar()) {
@@ -55,26 +55,28 @@ public class LexicalAnalyzer {
 				errorInput(c);
 				break;
 			} catch (NullConvertionException e) {
-				if (dfa.isCurrentAcceptable()) {
-					stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-					readHead.rollBack(1);
-				}
+				stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+				readHead.rollBack(1);
 				break;
 			}
 		}
-		if(dfa.isCurrentAcceptable()) {
+		if (dfa.isCurrentAcceptable()) {
 			StateConverter stateConverter = new StateConverterImp();
 			tokenList.add(stateConverter.stateConverToToken(dfa.getCurrentState(), stringBuilder.toString()));
 		} else {
-			errorToken(stringBuilder.toString());
+			if (stringBuilder.length() > 0)
+				errorToken(stringBuilder.toString());
 		}
 	}
-	
+
 	private void errorInput(Character c) {
+		if (c != '\n')
+			errorTokenList.add(new ErrorToken(c.toString()));
+
 	}
-	
+
 	private void errorToken(String errorTokenString) {
-		
+		errorTokenList.add(new ErrorToken(errorTokenString));
 	}
 
 	private void defaultInit() throws FileNotFoundException, RecognizeException {
@@ -104,7 +106,7 @@ public class LexicalAnalyzer {
 	public void setReadHeadFromFile(String readHeadFile) throws FileNotFoundException {
 		readHead = ReadHeadFactory.createReaderFromFile(readHeadFile);
 	}
-	
+
 	public void setReadHeadFromStringList(List<String> stringList) {
 		readHead = ReadHeadFactory.createReadHeadFromStringList(stringList);
 	}

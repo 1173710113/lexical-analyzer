@@ -35,12 +35,9 @@ public class Form1 extends JFrame implements ActionListener {
 	private JTable tb_DFA;
 
 	private Character[] DFATitle;
-	private String[][] DFAData;
-	
-	private String file_name;
+	private String[][] DFAData;	
 
-	public Form1(String file_name) throws FileNotFoundException, RecognizeException, InValidInputException {
-		this.file_name = file_name;
+	public Form1() throws FileNotFoundException, RecognizeException, InValidInputException {
 		this.setTitle("Form1");
 		this.setSize(1500, 800);
 		initPanel();
