@@ -84,22 +84,24 @@ public class Form2 extends JFrame implements ActionListener{
 		add(main_panel);
 	}
 	
+	//添加DFA转换图数据
 	public void addDFA() {
 		DFATitle = new String[] {"数据一","内容一","1","2","3","4","5","6","7","8","9","10"};
 		DFAData = new String[][] {{"一","二","1","2","3","4","5","6","7","8","9","10"}};
 	}
 	
+	//添加token序列数据
 	public void addUnit() {
 		
 	}
 	
+	//添加错误数据
 	public void addError() {
 		
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		
 		
 	}
 

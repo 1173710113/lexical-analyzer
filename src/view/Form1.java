@@ -64,14 +64,20 @@ public class Form1 extends JFrame implements ActionListener{
 		add(main_panel);
 	}
 	
+	//添加DFA转换表数据
 	public void addDFA() {
 		DFATitle = new String[] {"数据","内容","1","2","3","4","5","6","7","8","9","10"};
 		DFAData = new String[][] {{"编号一","数据一","1","2","3","4","5","6","7","8","9","10"}};
 	}
+	
+	//添加词法规则数据
+	public void addregulation() {
+		
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		
+		//
 	}
 
 }

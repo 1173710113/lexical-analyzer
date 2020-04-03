@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class SpecialSymbolTable {
 
-	private static final Map<String, Character> specialSymbolMap = new HashMap<>() {
+	private static final Map<String, Character> specialSymbolMap = new HashMap<String,Character>() {
 		/**
 		 * 
 		 */

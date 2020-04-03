@@ -116,13 +116,14 @@ class MainForm extends JFrame implements ActionListener {
 				file_name = file_open_filechooser.getSelectedFile().getPath();
 				try {
 					List<String> lines = new ArrayList<String>();
-					BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file_name), "UTF-8"));
+					BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file_name), "gb2312"));
 					String line = null;
 					while ((line = br.readLine()) != null) {
 						//lines.add(line);
 						ta_input.append(line+"\n");
 					}
 					br.close();
+					System.out.println(ta_input.getText());
 				}catch (Exception event) {
 					event.printStackTrace();
 				}
