@@ -42,6 +42,8 @@ class MainForm extends JFrame implements ActionListener {
 
 	private JTextArea ta_input;
 	private JScrollPane scrollpane_input;
+	
+	String file_name;
 
 	public MainForm() {
 		this.setTitle("编译器");
@@ -81,6 +83,7 @@ class MainForm extends JFrame implements ActionListener {
 		scrollpane_input = new JScrollPane(ta_input);
 		main_panel.add(scrollpane_input);
 		scrollpane_input.setBounds(10, 40, 675, 600);
+		ta_input.setEditable(false);
 		// scrollpane_input.setRowHeaderView(new LineNumberHeaderView());
 
 		add(main_panel);
@@ -92,7 +95,7 @@ class MainForm extends JFrame implements ActionListener {
 		if (e.getSource() == lexical_regulation) {
 			Form1 form1;
 			try {
-				form1 = new Form1();
+				form1 = new Form1(file_name);
 				form1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				form1.setResizable(false);
 				form1.setVisible(true);
@@ -107,13 +110,13 @@ class MainForm extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(main_panel, "您什么都没输入", "error", JOptionPane.ERROR_MESSAGE);
 				System.out.println("nothing input!");
 			} else {
-				Form2 form2 = new Form2();
+				Form2 form2 = new Form2(file_name);
 				form2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				form2.setResizable(false);
 				form2.setVisible(true);
 			}
 		} else if (e.getSource() == file_open) {
-			String file_name;
+			
 			JFileChooser file_open_filechooser = new JFileChooser();
 			file_open_filechooser.setCurrentDirectory(new File("."));
 			file_open_filechooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -128,11 +131,11 @@ class MainForm extends JFrame implements ActionListener {
 					for(String line : lines) {
 						ta_input.append(line + "\n");
 					}
+					//System.out.println(file_name);
 				}catch (Exception event) {
 					event.printStackTrace();
 				}
 				
-
 //				File file = new File(file_name);
 //				try {
 //					InputStream in = new FileInputStream(file);

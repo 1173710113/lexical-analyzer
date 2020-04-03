@@ -18,12 +18,16 @@ import token.errorToken.ErrorToken;
 
 public class LexicalAnalyzer {
 	private static final String defaultDFAFile = "text\\text2.txt";
-	private static final String defaultReadHeadFile = "text\\’˝»∑≤‚ ‘.txt";
+	private static String defaultReadHeadFile ;
 	private DFA dfa = null;
 	private ReadHead readHead = null;
 	List<Token> tokenList = new ArrayList<>();
 	List<ErrorToken> errorTokenList = new ArrayList<>();
 
+	public LexicalAnalyzer(String file_name) {
+		this.defaultReadHeadFile = file_name;
+	}
+	
 	public void lexicalAnalyse() throws FileNotFoundException, RecognizeException {
 		tokenList.clear();
 		errorTokenList.clear();
