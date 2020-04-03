@@ -2,30 +2,13 @@ package readhead;
 
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.List;
-
-import filereader.InputStrategy;
 
 public class ReadHeadImp implements ReadHead {
 
 	private String text;
 	private int currentCharPosition = 0;
 	private Character nextLineChar = '\n';
-
-	public ReadHeadImp(File file) throws FileNotFoundException {
-		InputStrategy reader = InputStrategy.input(file);
-		StringBuilder stringBuilder = new StringBuilder();
-		List<String> strList = reader.getAllStrings();
-		for (String str : strList) {
-			if (stringBuilder.length() != 0) {
-				stringBuilder.append(nextLineChar);
-			}
-			stringBuilder.append(str.trim());
-		}
-		text = stringBuilder.toString();
-	}
 	
 	public ReadHeadImp(List<String> stringList) {
 		StringBuilder stringBuilder = new StringBuilder();

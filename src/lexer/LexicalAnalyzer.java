@@ -47,11 +47,11 @@ public class LexicalAnalyzer {
 		StringBuilder stringBuilder = new StringBuilder();
 		while (readHead.hasNextChar()) {
 			Character c = readHead.nextChar();
-			if (readHead.isNextLineChar(c))break;
 			try {
 				stringBuilder.append(c);
 				dfa.inputChar(c);
 			} catch (InValidInputException e) {
+				stringBuilder.deleteCharAt(stringBuilder.length() - 1);
 				errorInput(c);
 				break;
 			} catch (NullConvertionException e) {
@@ -71,7 +71,6 @@ public class LexicalAnalyzer {
 	}
 	
 	private void errorInput(Character c) {
-		System.out.println("error input" + c);
 	}
 	
 	private void errorToken(String errorTokenString) {
