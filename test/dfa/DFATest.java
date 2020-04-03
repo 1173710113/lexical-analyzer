@@ -18,7 +18,7 @@ class DFATest {
 
 	@Test
 	void test() throws FileNotFoundException, RecognizeException, InValidInputException {
-		String fileName = "G:\\eclipse-workspace\\lexical analyzer\\text\\test1.txt";
+		String fileName = "text\\test1.txt";
 		String str = "abb";
 		DFA dfa = c.createDFAByFile(fileName);
 		assertTrue(dfa.testify(str));
@@ -26,7 +26,7 @@ class DFATest {
 
 	@Test
 	void test2() throws FileNotFoundException, RecognizeException, InValidInputException {
-		String fileName = "G:\\eclipse-workspace\\lexical analyzer\\text\\text2.txt";
+		String fileName = "text\\text2.txt";
 		List<String> strList = Arrays.asList("=", ";", "[", "]", "{", "}", "(", ")", ",", "+", "-", "*", "/", "%", "++",
 				"--", "+=", "-=", "/=", "%=", "&", "^", "|", "&=", "^=", "|=", "==", "&&", "||", "!", "!=", ">", ">>",
 				">>=", "<", "<<", "<<=","0","012","0102","0x4d","0.5","0.5E-2","hda","?","'a'","/*45	646*    ***/","\"hdkaj456F	FF?>>>>hd\"","Adda","4556",">=","<=");
@@ -38,7 +38,7 @@ class DFATest {
 
 	@Test
 	void test3() throws FileNotFoundException, RecognizeException, InValidInputException {
-		String fileName = "G:\\eclipse-workspace\\lexical analyzer\\text\\text2.txt";
+		String fileName = "text\\text2.txt";
 		List<String> strList = Arrays.asList("===","00","4gig","'dfdf'","0x5p");
 		DFA dfa = c.createDFAByFile(fileName);
 		for (String str : strList) {

@@ -17,8 +17,8 @@ import token.Token;
 import token.errorToken.ErrorToken;
 
 public class LexicalAnalyzer {
-	private static final String defaultDFAFile = "G:\\eclipse-workspace\\lexical analyzer\\text\\text2.txt";
-	private static final String defaultReadHeadFile = "G:\\eclipse-workspace\\lexical analyzer\\text\\正确测试.txt";
+	private static final String defaultDFAFile = "text\\text2.txt";
+	private static final String defaultReadHeadFile = "text\\正确测试.txt";
 	private DFA dfa = null;
 	private ReadHead readHead = null;
 	List<Token> tokenList = new ArrayList<>();
