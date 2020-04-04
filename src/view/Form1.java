@@ -2,6 +2,7 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import dfa.factory.DFAFactory;
 import exception.dfa.InValidInputException;
 import exception.dfa.NullConvertionException;
 import exception.recognize.RecognizeException;
+import filereader.InputStrategy;
 
 public class Form1 extends JFrame implements ActionListener {
 
@@ -63,6 +65,7 @@ public class Form1 extends JFrame implements ActionListener {
 		scrollpane_regulation.setBounds(40, 100, 675, 600);
 
 		addDFA();
+		addregulation();
 
 		tb_DFA = new JTable(DFAData, DFATitle);
 		tb_DFA.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -103,8 +106,14 @@ public class Form1 extends JFrame implements ActionListener {
 	}
 
 	// 添加词法规则数据
-	public void addregulation() {
-		
+	public void addregulation() throws FileNotFoundException {
+		ta_regulation.setText("");
+		String criteriaFile = "text\\词法规则.txt";
+		InputStrategy input = InputStrategy.input(new File(criteriaFile));
+		List<String> criteriaList = input.getAllStrings();
+		for(String str : criteriaList) {
+			ta_regulation.append(str + "\n");
+		}
 	}
 
 	@Override
