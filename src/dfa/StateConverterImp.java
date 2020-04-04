@@ -55,9 +55,9 @@ public class StateConverterImp implements StateConverter{
 		case "22":
 			return new Real(Float.parseFloat(str));
 		case "14":
-			return new Real(Integer.parseInt(str.substring(1), 8));
+			return new Num(Integer.parseInt(str.substring(1), 8));
 		case "16":
-			return new Real(Integer.parseInt(str.substring(2), 16));
+			return new Num(Integer.parseInt(str.substring(2), 16));
 		case "23":
 			return isReservedWord(str);
 		case "24":

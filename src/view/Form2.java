@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 import lexer.*;
+import token.Tag;
 import token.Token;
 import token.errorToken.ErrorToken;
 
@@ -40,11 +41,11 @@ public class Form2 extends JFrame implements ActionListener{
 	private JTable tb_DFA;
 	private JTable tb_error;
 	
-	private String[] unitTitle = {"输入项","token序列","类型","行号"};
+	private String[] unitTitle = {"token序列","类型"};
 	private String[][] unitData = {{}};
 	private Character[] DFATitle;
 	private String[][] DFAData = {{"1","2"}};
-	private String[] errorTitle = {"内容一","内容二","内容三"};
+	private String[] errorTitle = {"错误"};
 	private String[][] errorData;
 	
 	private List<String> inputs;
@@ -156,9 +157,10 @@ public class Form2 extends JFrame implements ActionListener{
 		lexicalAnalyzer.setReadHeadFromStringList(inputs);
 		lexicalAnalyzer.lexicalAnalyse();
 		List<Token> resultToken = lexicalAnalyzer.getResultToken();
-		unitData = new String[resultToken.size()][4];
+		unitData = new String[resultToken.size()][2];
 		for(int i =0; i < resultToken.size(); i++) {
-			unitData[i][1] = resultToken.get(i).toString();
+			unitData[i][0] = resultToken.get(i).toString();
+			unitData[i][1] = Tag.tagToString(resultToken.get(i).tag);
 		}
 		
 	}
@@ -166,7 +168,7 @@ public class Form2 extends JFrame implements ActionListener{
 	//添加错误数据
 	public void addError() {
 		List<ErrorToken> errorTokenList = lexicalAnalyzer.getErrorToken();
-		errorData = new String[errorTokenList.size()][3];
+		errorData = new String[errorTokenList.size()][1];
 		for(int i = 0 ; i < errorTokenList.size(); i++) {
 			errorData[i][0] = errorTokenList.get(i).toString();
 		}
