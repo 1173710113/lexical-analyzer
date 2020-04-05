@@ -94,9 +94,9 @@ class MainForm extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == lexical_regulation) {
-			Form1 form1;
+			LexicalRuleForm form1;
 			try {
-				form1 = new Form1();
+				form1 = new LexicalRuleForm();
 				form1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				form1.setResizable(false);
 				form1.setVisible(true);
@@ -112,7 +112,7 @@ class MainForm extends JFrame implements ActionListener {
 				System.out.println("nothing input!");
 			} else {
 				List<String> inputs = Arrays.asList(ta_input.getText().split("\n"));
-				Form2 form2 = new Form2(inputs);
+				LexicalAnalyzeResultForm form2 = new LexicalAnalyzeResultForm(inputs);
 				form2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				form2.setResizable(false);
 				form2.setVisible(true);

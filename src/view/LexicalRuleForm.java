@@ -21,7 +21,7 @@ import exception.dfa.NullConvertionException;
 import exception.recognize.RecognizeException;
 import filereader.InputStrategy;
 
-public class Form1 extends JFrame implements ActionListener {
+public class LexicalRuleForm extends JFrame implements ActionListener {
 
 	/**
 	 * 
@@ -39,7 +39,7 @@ public class Form1 extends JFrame implements ActionListener {
 	private Character[] DFATitle;
 	private String[][] DFAData;	
 
-	public Form1() throws FileNotFoundException, RecognizeException, InValidInputException {
+	public LexicalRuleForm() throws FileNotFoundException, RecognizeException, InValidInputException {
 		this.setTitle("Form1");
 		this.setSize(1500, 800);
 		initPanel();

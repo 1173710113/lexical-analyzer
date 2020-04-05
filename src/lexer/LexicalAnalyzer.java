@@ -17,8 +17,6 @@ import token.Token;
 import token.errorToken.ErrorToken;
 
 public class LexicalAnalyzer {
-	private static final String defaultDFAFile = "text\\text2.txt";
-	private static final String defaultReadHeadFile = "text\\正确测试.txt";
 	private DFA dfa = null;
 	private ReadHead readHead = null;
 	List<Token> tokenList = new ArrayList<>();
@@ -48,31 +46,28 @@ public class LexicalAnalyzer {
 		while (readHead.hasNextChar()) {
 			Character c = readHead.nextChar();
 			try {
-				stringBuilder.append(c);
 				dfa.inputChar(c);
 			} catch (InValidInputException e) {
-				stringBuilder.deleteCharAt(stringBuilder.length() - 1);
 				errorInput(c);
 				break;
 			} catch (NullConvertionException e) {
-				stringBuilder.deleteCharAt(stringBuilder.length() - 1);
 				readHead.rollBack(1);
 				break;
 			}
+			stringBuilder.append(c);
 		}
 		if (dfa.isCurrentAcceptable()) {
 			StateConverter stateConverter = new StateConverterImp();
 			tokenList.add(stateConverter.stateConverToToken(dfa.getCurrentState(), stringBuilder.toString()));
-		} else {
-			if (stringBuilder.length() > 0)
-				errorToken(stringBuilder.toString());
+		} else if (stringBuilder.length() > 0) {
+			errorToken(stringBuilder.toString());
 		}
+
 	}
 
 	private void errorInput(Character c) {
 		if (c != '\n')
 			errorTokenList.add(new ErrorToken(c.toString()));
-
 	}
 
 	private void errorToken(String errorTokenString) {
@@ -80,6 +75,8 @@ public class LexicalAnalyzer {
 	}
 
 	private void defaultInit() throws FileNotFoundException, RecognizeException {
+		String defaultDFAFile = "text\\text2.txt";
+		String defaultReadHeadFile = "text\\正确测试.txt";
 		if (!isDFAInitialized())
 			setDFAFromFile(defaultDFAFile);
 		if (!isReadHeadInitialized())

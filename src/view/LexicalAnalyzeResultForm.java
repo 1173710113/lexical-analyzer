@@ -23,7 +23,7 @@ import exception.dfa.InValidInputException;
 import exception.dfa.NullConvertionException;
 import exception.recognize.RecognizeException;
 
-public class Form2 extends JFrame implements ActionListener{
+public class LexicalAnalyzeResultForm extends JFrame implements ActionListener{
 
 	/**
 	 * 
@@ -52,7 +52,7 @@ public class Form2 extends JFrame implements ActionListener{
 	private LexicalAnalyzer lexicalAnalyzer;
 	
 	
-	public Form2(List<String> inputs){
+	public LexicalAnalyzeResultForm(List<String> inputs){
 		this.inputs = inputs;
 		this.setTitle("Form2");
 		this.setSize(1800,900);
