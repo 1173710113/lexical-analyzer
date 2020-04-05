@@ -8,10 +8,10 @@ import exception.recognize.RecognizeStartException;
 public class RecognizeStartImp implements RecognizeStart {
 
 	private String pattern = "<start>:(\\w+)";
-	private Pattern p = Pattern.compile(pattern);
 	
 	@Override
 	public String recognize(String str) throws RecognizeStartException {
+		Pattern p = Pattern.compile(pattern);
 		Matcher m = p.matcher(str);
 		if(m.matches()) {
 			return m.group(1);

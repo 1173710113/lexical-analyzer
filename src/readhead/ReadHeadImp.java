@@ -2,6 +2,7 @@ package readhead;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReadHeadImp implements ReadHead {
@@ -49,12 +50,12 @@ public class ReadHeadImp implements ReadHead {
 	}
 	
 	private boolean isBlank() {
-		return (text.charAt(currentCharPosition) == ' ' || text.charAt(currentCharPosition) == '	' || text.charAt(currentCharPosition) == '\n');
+		List<Character> blankCharacterList = new ArrayList<Character>();
+		blankCharacterList.add(' ');
+		blankCharacterList.add('	');
+		blankCharacterList.add('\n');
+		return blankCharacterList.contains(text.charAt(currentCharPosition));
 	}
 
-	@Override
-	public boolean isNextLineChar(Character c) {
-		return c==nextLineChar;
-	}
 
 }

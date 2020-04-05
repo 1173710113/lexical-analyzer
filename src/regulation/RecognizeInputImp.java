@@ -13,11 +13,11 @@ import exception.recognize.RecognizeInputException;
 public class RecognizeInputImp implements RecognizeInput {
 
 	private String pattern = "<input>:(.(,.)*)";
-	private Pattern p = Pattern.compile(pattern);
 	private Matcher m;
 
 	@Override
 	public List<Character> recognize(String str) throws RecognizeInputException {
+		Pattern p = Pattern.compile(pattern);
 		m = p.matcher(str);
 		if (m.matches()) {
 			if (isInputsAreMultipleAndCommaExistInMiddle()) {

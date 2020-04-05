@@ -15,12 +15,6 @@ public interface ReadHead {
 	 */
 	public boolean hasNextChar();
 	
-	/**
-	 * 
-	 * @param c
-	 * @return
-	 */
-	public boolean isNextLineChar(Character c);
 	
 	/**
 	 * 
