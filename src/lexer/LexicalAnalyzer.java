@@ -4,17 +4,17 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dfa.DFA;
-import dfa.StateConverter;
-import dfa.StateConverterImp;
-import dfa.factory.DFAFactory;
 import exception.dfa.InValidInputException;
 import exception.dfa.NullConvertionException;
 import exception.recognize.RecognizeException;
-import readhead.ReadHead;
-import readhead.factory.ReadHeadFactory;
-import token.Token;
-import token.errorToken.ErrorToken;
+import lexer.dfa.DFA;
+import lexer.dfa.StateConverter;
+import lexer.dfa.StateConverterImp;
+import lexer.dfa.factory.DFAFactory;
+import lexer.token.Token;
+import lexer.token.errorToken.ErrorToken;
+import util.readhead.ReadHead;
+import util.readhead.factory.ReadHeadFactory;
 
 public class LexicalAnalyzer {
 	private DFA dfa = null;

@@ -8,9 +8,10 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import dfa.factory.DFAFactory;
 import exception.dfa.InValidInputException;
 import exception.recognize.RecognizeException;
+import lexer.dfa.DFA;
+import lexer.dfa.factory.DFAFactory;
 
 class DFATest {
 

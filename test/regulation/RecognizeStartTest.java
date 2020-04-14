@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import exception.recognize.RecognizeStartException;
+import util.regulation.RecognizeStart;
 
 class RecognizeStartTest {
 

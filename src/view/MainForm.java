@@ -20,7 +20,7 @@ import javax.swing.JTextArea;
 
 import exception.dfa.InValidInputException;
 import exception.recognize.RecognizeException;
-import filereader.InputStrategy;
+import util.filereader.InputStrategy;
 
 class MainForm extends JFrame implements ActionListener {
 

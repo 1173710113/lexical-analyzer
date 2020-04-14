@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import exception.recognize.RecognizeInputException;
+import util.regulation.RecognizeInput;
 
 class RecognizeInputTest {
 

@@ -6,7 +6,8 @@ import java.io.FileNotFoundException;
 
 import org.junit.jupiter.api.Test;
 
-import readhead.factory.ReadHeadFactory;
+import util.readhead.ReadHead;
+import util.readhead.factory.ReadHeadFactory;
 
 class ReadHeadTest {
 

@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 
 import org.junit.jupiter.api.Test;
 
-import filereader.InputStrategy;
+import util.filereader.InputStrategy;
 
 class BufferStrategyTest {
 

@@ -1,0 +1,36 @@
+package util.filereader;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.List;
+
+
+/**
+ * I/O factory using to return a specific way of I/O solutions. Actually when constructing the
+ * instance, it has already read all lines and saved.
+ */
+public interface InputStrategy {
+
+  /**
+   * Return an input reader instance.
+   * 
+   * @return an input reader instance
+   */
+  public static InputStrategy input(File file) throws FileNotFoundException {
+    return new BufferStrategy(file);
+  }
+
+  /**
+   * Return the nextLine From input.
+   * 
+   * @return the String format next line, contains all space exclude '\n' or '\r\n', null if there
+   *         is no next line or error occurs
+   */
+  public String nextLine();
+  
+  /**
+   * 
+   * @return
+   */
+  public List<String> getAllStrings();
+}

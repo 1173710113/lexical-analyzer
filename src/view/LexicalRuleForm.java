@@ -13,13 +13,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 
-import dfa.ConversionTable;
-import dfa.DFA;
-import dfa.factory.DFAFactory;
 import exception.dfa.InValidInputException;
 import exception.dfa.NullConvertionException;
 import exception.recognize.RecognizeException;
-import filereader.InputStrategy;
+import lexer.dfa.ConversionTable;
+import lexer.dfa.DFA;
+import lexer.dfa.factory.DFAFactory;
+import util.filereader.InputStrategy;
 
 public class LexicalRuleForm extends JFrame implements ActionListener {
 

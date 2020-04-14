@@ -6,9 +6,12 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 import lexer.*;
-import token.Tag;
-import token.Token;
-import token.errorToken.ErrorToken;
+import lexer.dfa.ConversionTable;
+import lexer.dfa.DFA;
+import lexer.dfa.factory.DFAFactory;
+import lexer.token.Tag;
+import lexer.token.Token;
+import lexer.token.errorToken.ErrorToken;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,9 +19,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import dfa.ConversionTable;
-import dfa.DFA;
-import dfa.factory.DFAFactory;
 import exception.dfa.InValidInputException;
 import exception.dfa.NullConvertionException;
 import exception.recognize.RecognizeException;

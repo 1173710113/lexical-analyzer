@@ -7,10 +7,12 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import dfa.ConversionTable;
 import exception.dfa.InValidInputException;
 import exception.dfa.NullConvertionException;
 import exception.recognize.RecognizeConvertionException;
+import lexer.dfa.ConversionTable;
+import util.regulation.RecognizeConversionImp;
+import util.regulation.RecognizeConvertion;
 
 class RecognizeTableTest {
 
