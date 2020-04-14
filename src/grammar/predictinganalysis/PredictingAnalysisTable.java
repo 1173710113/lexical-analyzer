@@ -31,6 +31,10 @@ public class PredictingAnalysisTable {
 		}
 
 	}
+	
+	public Production getPredict(NonterminalSymbol nonterminalSymbol, TerminalSymbol terminalSymbol) {
+		return table[nonterminalSymbolMap.get(nonterminalSymbol)][terminalSymbolMap.get(terminalSymbol)];
+	}
 
 	private Map<NonterminalSymbol, Integer> initNonterminalSymbolMap(Set<NonterminalSymbol> nonterminalSymbols) {
 		Map<NonterminalSymbol, Integer> nonterminalSymbolMap = new LinkedHashMap<>();

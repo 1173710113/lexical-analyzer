@@ -16,12 +16,12 @@ class ReadHeadTest {
 	@Test
 	void test() throws FileNotFoundException {
 		
-		ReadHead readHead = ReadHeadFactory.createReaderFromFile(filePath);
+		ReadHead<Character> readHead = ReadHeadFactory.createCharacterReadHeadFromFile(filePath);
 		String str = "/*4646*/";
 		for(char c : str.toCharArray()) {
-			assertEquals(c, readHead.nextChar());
+			assertEquals(c, readHead.next());
 		}
-		assertFalse(readHead.hasNextChar());
+		assertFalse(readHead.hasNext());
 	}
 	
 

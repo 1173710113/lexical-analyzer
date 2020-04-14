@@ -1,5 +1,7 @@
 package grammarsymboltest;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Map;
@@ -7,6 +9,8 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import grammar.GrammaticalAnalyzer;
+import grammar.grammarsymbol.EmptyProduction;
 import grammar.grammarsymbol.EmptyTerminalSymbol;
 import grammar.grammarsymbol.EndTerminalSymbol;
 import grammar.grammarsymbol.NonterminalSymbol;
@@ -18,6 +22,8 @@ import grammar.predictinganalysis.First;
 import grammar.predictinganalysis.Follow;
 import grammar.predictinganalysis.PredictingAnalysisTable;
 import grammar.predictinganalysis.Select;
+import util.readhead.ReadHead;
+import util.readhead.TerminalSymbolReadHead;
 
 class FirstTest {
 
@@ -30,17 +36,17 @@ class FirstTest {
 		NonterminalSymbol F = new StringNonterminalSymbol("F");
 		NonterminalSymbol T_ = new StringNonterminalSymbol("T'");
 		TerminalSymbol plus = new StringTerminalSymbol("+");
-		TerminalSymbol empty = EmptyTerminalSymbol.getInstance();
 		TerminalSymbol multi = new StringTerminalSymbol("*");
 		TerminalSymbol leftBracket = new StringTerminalSymbol("(");
 		TerminalSymbol rightBracket = new StringTerminalSymbol(")");
 		TerminalSymbol id = new StringTerminalSymbol("id");
+		TerminalSymbol end = EndTerminalSymbol.getInstance();
 		Production production1 = new Production(E, Arrays.asList(T,E_));
 		Production production2 = new Production(E_, Arrays.asList(plus,T,E_));
-		Production production3 = new Production(E_, Arrays.asList(empty));
+		Production production3 = new EmptyProduction(E_);
 		Production production4 = new Production(T, Arrays.asList(F, T_));
 		Production production5 = new Production(T_, Arrays.asList(multi,F,T_));
-		Production production6 = new Production(T_, Arrays.asList(empty));
+		Production production6 = new EmptyProduction(T_);
 		Production production7 = new Production(F, Arrays.asList(leftBracket, E, rightBracket));
 		Production production8 = new Production(F, Arrays.asList(id));
 		Set<Production> productions = new LinkedHashSet<>();
@@ -80,6 +86,13 @@ class FirstTest {
 		nonterminalSymbols.add(F);
 		PredictingAnalysisTable predictingAnalysisTable = new PredictingAnalysisTable(selectMap, nonterminalSymbols, terminalSymbols);
 		System.out.println(predictingAnalysisTable.toString());
+		assertTrue(predictingAnalysisTable.getPredict(E, id).equals(production1));
+		assertTrue(predictingAnalysisTable.getPredict(E, leftBracket).equals(production1));
+		assertTrue(predictingAnalysisTable.getPredict(E_, plus).equals(production2));
+		assertTrue(predictingAnalysisTable.getPredict(E_, rightBracket).equals(production3));
+		assertTrue(predictingAnalysisTable.getPredict(E_, end).equals(production3));
+		ReadHead<TerminalSymbol> readHead = new TerminalSymbolReadHead(Arrays.asList(id, plus, id, multi, id));
+		System.out.println(GrammaticalAnalyzer.grammaticalAnalyse(predictingAnalysisTable, readHead, E));
 	}
 
 }

@@ -1,19 +1,19 @@
 package util.readhead;
 
-public interface ReadHead {
+public interface ReadHead<T> {
 
 	
 	/**
 	 * 
 	 * @return
 	 */
-	public Character nextChar();
+	public T next();
 	
 	/**
 	 * 
 	 * @return
 	 */
-	public boolean hasNextChar();
+	public boolean hasNext();
 	
 	
 	/**
@@ -21,6 +21,7 @@ public interface ReadHead {
 	 * @param stepSize
 	 */
 	public void rollBack(int stepSize);
+	
 	
 	/**
 	 * 

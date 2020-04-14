@@ -6,17 +6,17 @@ import java.util.List;
 
 import util.filereader.InputStrategy;
 import util.readhead.ReadHead;
-import util.readhead.ReadHeadImp;
+import util.readhead.CharacterReadHead;
 
 public class ReadHeadFactory {
 
-	public static ReadHead createReaderFromFile(String filePath) throws FileNotFoundException {
+	public static ReadHead<Character> createCharacterReadHeadFromFile(String filePath) throws FileNotFoundException {
 		File file = new File(filePath);
 		InputStrategy input = InputStrategy.input(file);
-		return createReadHeadFromStringList(input.getAllStrings());
+		return createCharacterReadHeadFromStringList(input.getAllStrings());
 	};
 	
-	public static ReadHead createReadHeadFromStringList(List<String> stringList) {
-		return new ReadHeadImp(stringList);
+	public static ReadHead<Character> createCharacterReadHeadFromStringList(List<String> stringList) {
+		return new CharacterReadHead(stringList);
 	}
 }

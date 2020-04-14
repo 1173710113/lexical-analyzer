@@ -18,7 +18,7 @@ import util.readhead.factory.ReadHeadFactory;
 
 public class LexicalAnalyzer {
 	private DFA dfa = null;
-	private ReadHead readHead = null;
+	private ReadHead<Character> readHead = null;
 	List<Token> tokenList = new ArrayList<>();
 	List<ErrorToken> errorTokenList = new ArrayList<>();
 
@@ -26,7 +26,7 @@ public class LexicalAnalyzer {
 		tokenList.clear();
 		errorTokenList.clear();
 		defaultInit();
-		while (readHead.hasNextChar()) {
+		while (readHead.hasNext()) {
 			readHead.skipBlank();
 			dfa.setStateToStartState();
 			readToken();
@@ -43,8 +43,8 @@ public class LexicalAnalyzer {
 
 	private void readToken() {
 		StringBuilder stringBuilder = new StringBuilder();
-		while (readHead.hasNextChar()) {
-			Character c = readHead.nextChar();
+		while (readHead.hasNext()) {
+			Character c = readHead.next();
 			try {
 				dfa.inputChar(c);
 			} catch (InValidInputException e) {
@@ -101,11 +101,11 @@ public class LexicalAnalyzer {
 	}
 
 	public void setReadHeadFromFile(String readHeadFile) throws FileNotFoundException {
-		readHead = ReadHeadFactory.createReaderFromFile(readHeadFile);
+		readHead = ReadHeadFactory.createCharacterReadHeadFromFile(readHeadFile);
 	}
 
 	public void setReadHeadFromStringList(List<String> stringList) {
-		readHead = ReadHeadFactory.createReadHeadFromStringList(stringList);
+		readHead = ReadHeadFactory.createCharacterReadHeadFromStringList(stringList);
 	}
 
 }
