@@ -1,6 +1,9 @@
-package grammar.grammarsymbol;
+package grammar.production;
 
 import java.util.Arrays;
+
+import grammar.grammarsymbol.EmptyTerminalSymbol;
+import grammar.grammarsymbol.NonterminalSymbol;
 
 public class EmptyProduction extends Production{
 

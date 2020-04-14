@@ -33,4 +33,10 @@ public interface InputStrategy {
    * @return
    */
   public List<String> getAllStrings();
+  
+  /**
+   * 
+   * @return
+   */
+  public String getString();
 }

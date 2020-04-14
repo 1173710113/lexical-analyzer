@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import grammar.grammarsymbol.EmptyProduction;
 import grammar.grammarsymbol.EndTerminalSymbol;
 import grammar.grammarsymbol.GrammarSymbol;
 import grammar.grammarsymbol.NonterminalSymbol;
-import grammar.grammarsymbol.Production;
 import grammar.grammarsymbol.TerminalSymbol;
 import grammar.predictinganalysis.PredictingAnalysisTable;
+import grammar.production.EmptyProduction;
+import grammar.production.Production;
 import util.readhead.ReadHead;
 
 public class GrammaticalAnalyzer {

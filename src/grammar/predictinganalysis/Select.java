@@ -7,8 +7,8 @@ import java.util.Set;
 
 import grammar.grammarsymbol.EmptyTerminalSymbol;
 import grammar.grammarsymbol.NonterminalSymbol;
-import grammar.grammarsymbol.Production;
 import grammar.grammarsymbol.TerminalSymbol;
+import grammar.production.Production;
 
 public class Select {
 

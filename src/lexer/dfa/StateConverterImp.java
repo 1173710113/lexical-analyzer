@@ -143,6 +143,14 @@ public class StateConverterImp implements StateConverter{
 			return Word.True;
 		case "false":
 			return Word.False;
+		case "record":
+			return new Word(str, Tag.RECORD);
+		case "then":
+			return new Word(str, Tag.THEN);
+		case "proc":
+			return new Word(str, Tag.PROC);
+		case "call":
+			return new Word(str, Tag.CALL);
 		default:
 			return new Word(str, Tag.ID);
 		}

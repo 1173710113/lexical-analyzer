@@ -10,11 +10,8 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import grammar.GrammaticalAnalyzer;
-import grammar.grammarsymbol.EmptyProduction;
-import grammar.grammarsymbol.EmptyTerminalSymbol;
 import grammar.grammarsymbol.EndTerminalSymbol;
 import grammar.grammarsymbol.NonterminalSymbol;
-import grammar.grammarsymbol.Production;
 import grammar.grammarsymbol.StringNonterminalSymbol;
 import grammar.grammarsymbol.StringTerminalSymbol;
 import grammar.grammarsymbol.TerminalSymbol;
@@ -22,6 +19,8 @@ import grammar.predictinganalysis.First;
 import grammar.predictinganalysis.Follow;
 import grammar.predictinganalysis.PredictingAnalysisTable;
 import grammar.predictinganalysis.Select;
+import grammar.production.EmptyProduction;
+import grammar.production.Production;
 import util.readhead.ReadHead;
 import util.readhead.TerminalSymbolReadHead;
 

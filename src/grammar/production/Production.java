@@ -1,6 +1,9 @@
-package grammar.grammarsymbol;
+package grammar.production;
 
 import java.util.List;
+
+import grammar.grammarsymbol.GrammarSymbol;
+import grammar.grammarsymbol.NonterminalSymbol;
 
 public class Production {
 
