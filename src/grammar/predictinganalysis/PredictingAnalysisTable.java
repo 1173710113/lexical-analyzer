@@ -1,11 +1,15 @@
 package grammar.predictinganalysis;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import exception.grammar.NullPredictionException;
 import grammar.grammarsymbol.NonterminalSymbol;
 import grammar.grammarsymbol.TerminalSymbol;
 import grammar.production.Production;
@@ -16,8 +20,11 @@ public class PredictingAnalysisTable {
 	private Map<TerminalSymbol, Integer> terminalSymbolMap;
 	private Production[][] table;
 
-	public PredictingAnalysisTable(Map<Production, Set<TerminalSymbol>> selectMap,
-			Set<NonterminalSymbol> nonterminalSymbols, Set<TerminalSymbol> terminalSymbols) {
+	public PredictingAnalysisTable(Map<Production, Set<TerminalSymbol>> selectMap
+			) {
+		Set<NonterminalSymbol> nonterminalSymbols = new LinkedHashSet<>(); 
+		Set<TerminalSymbol> terminalSymbols = new LinkedHashSet<>();
+		construct(selectMap, nonterminalSymbols, terminalSymbols);
 		table = initTable(nonterminalSymbols.size(),terminalSymbols.size());
 		nonterminalSymbolMap = initNonterminalSymbolMap(nonterminalSymbols);
 		terminalSymbolMap = initTerminalSymbolMap(terminalSymbols);
@@ -32,8 +39,14 @@ public class PredictingAnalysisTable {
 
 	}
 	
-	public Production getPredict(NonterminalSymbol nonterminalSymbol, TerminalSymbol terminalSymbol) {
-		return table[nonterminalSymbolMap.get(nonterminalSymbol)][terminalSymbolMap.get(terminalSymbol)];
+	public Production getPredict(NonterminalSymbol nonterminalSymbol, TerminalSymbol terminalSymbol) throws NullPredictionException {
+		assertTrue(nonterminalSymbolMap.containsKey(nonterminalSymbol), nonterminalSymbol.toString());
+		assertTrue(terminalSymbolMap.containsKey(terminalSymbol), terminalSymbol.toString());
+		Production production = table[nonterminalSymbolMap.get(nonterminalSymbol)][terminalSymbolMap.get(terminalSymbol)];
+		if(production == null) {
+			throw new NullPredictionException(nonterminalSymbol, terminalSymbol);
+		}
+		return production;
 	}
 
 	private Map<NonterminalSymbol, Integer> initNonterminalSymbolMap(Set<NonterminalSymbol> nonterminalSymbols) {
@@ -83,6 +96,15 @@ public class PredictingAnalysisTable {
 			stringBuilder.append("\n");
 		}
 		return stringBuilder.toString();
+	}
+	
+	private void construct(Map<Production, Set<TerminalSymbol>> selectMap, Set<NonterminalSymbol> nonterminalSymbols, Set<TerminalSymbol> terminalSymbols) {
+		for(Map.Entry<Production, Set<TerminalSymbol>> entry : selectMap.entrySet()) {
+			Production production = entry.getKey();
+			nonterminalSymbols.add(production.getNonterminalSymbol());
+			Set<TerminalSymbol> selectSet = entry.getValue();
+			terminalSymbols.addAll(selectSet);
+		}
 	}
 
 }

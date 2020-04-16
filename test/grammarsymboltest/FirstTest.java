@@ -2,6 +2,7 @@ package grammarsymboltest;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Map;
@@ -9,6 +10,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import exception.grammar.NullPredictionException;
 import grammar.GrammaticalAnalyzer;
 import grammar.grammarsymbol.EndTerminalSymbol;
 import grammar.grammarsymbol.NonterminalSymbol;
@@ -22,12 +24,12 @@ import grammar.predictinganalysis.Select;
 import grammar.production.EmptyProduction;
 import grammar.production.Production;
 import util.readhead.ReadHead;
-import util.readhead.TerminalSymbolReadHead;
+import util.readhead.TerminalSymbolReadHeadImp;
 
 class FirstTest {
 
 	@Test
-	void test() {
+	void test() throws NullPredictionException {
 		
 		NonterminalSymbol E = new StringNonterminalSymbol("E");
 		NonterminalSymbol T = new StringNonterminalSymbol("T");
@@ -40,7 +42,7 @@ class FirstTest {
 		TerminalSymbol rightBracket = new StringTerminalSymbol(")");
 		TerminalSymbol id = new StringTerminalSymbol("id");
 		TerminalSymbol end = EndTerminalSymbol.getInstance();
-		Production production1 = new Production(E, Arrays.asList(T,E_));
+		Production production1 = new Production(E, new ArrayList<>(Arrays.asList(T,E_)));
 		Production production2 = new Production(E_, Arrays.asList(plus,T,E_));
 		Production production3 = new EmptyProduction(E_);
 		Production production4 = new Production(T, Arrays.asList(F, T_));
@@ -65,8 +67,7 @@ class FirstTest {
 			}
 			System.out.println("}");
 		}
-		Follow follow = new Follow(firstMap, E, productions);
-		Map<NonterminalSymbol, Set<TerminalSymbol>> followMap = follow.getFollow();
+		Map<NonterminalSymbol, Set<TerminalSymbol>> followMap = Follow.getFollow(firstMap, E, productions);
 		System.out.println(followMap.toString());
 		Map<Production, Set<TerminalSymbol>> selectMap = Select.getProductionSelectSet(productions, firstMap, followMap);
 		System.out.println(selectMap);
@@ -83,14 +84,14 @@ class FirstTest {
 		nonterminalSymbols.add(T);
 		nonterminalSymbols.add(T_);
 		nonterminalSymbols.add(F);
-		PredictingAnalysisTable predictingAnalysisTable = new PredictingAnalysisTable(selectMap, nonterminalSymbols, terminalSymbols);
+		PredictingAnalysisTable predictingAnalysisTable = new PredictingAnalysisTable(selectMap);
 		System.out.println(predictingAnalysisTable.toString());
 		assertTrue(predictingAnalysisTable.getPredict(E, id).equals(production1));
 		assertTrue(predictingAnalysisTable.getPredict(E, leftBracket).equals(production1));
 		assertTrue(predictingAnalysisTable.getPredict(E_, plus).equals(production2));
 		assertTrue(predictingAnalysisTable.getPredict(E_, rightBracket).equals(production3));
 		assertTrue(predictingAnalysisTable.getPredict(E_, end).equals(production3));
-		ReadHead<TerminalSymbol> readHead = new TerminalSymbolReadHead(Arrays.asList(id, plus, id, multi, id));
+		ReadHead<TerminalSymbol> readHead = new TerminalSymbolReadHeadImp(Arrays.asList(id, plus, id, multi, id));
 		System.out.println(GrammaticalAnalyzer.grammaticalAnalyse(predictingAnalysisTable, readHead, E));
 	}
 

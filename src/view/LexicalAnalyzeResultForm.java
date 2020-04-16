@@ -160,7 +160,7 @@ public class LexicalAnalyzeResultForm extends JFrame implements ActionListener{
 		unitData = new String[resultToken.size()][2];
 		for(int i =0; i < resultToken.size(); i++) {
 			unitData[i][0] = resultToken.get(i).toString();
-			unitData[i][1] = Tag.tagToString(resultToken.get(i).tag);
+			unitData[i][1] = Tag.tagToTypeString(resultToken.get(i).tag);
 		}
 		
 	}

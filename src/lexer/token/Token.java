@@ -1,6 +1,8 @@
 package lexer.token;
 
-public class Token {
+import grammar.grammarsymbol.TerminalSymbol;
+
+public class Token implements TerminalSymbol{
 
 	public final int tag;
 	
@@ -10,7 +12,7 @@ public class Token {
 	
 	@Override
 	public String toString() {
-		return "<" + (char)tag + ",_>";
+		return "<" + Tag.tagToString(tag) + ",_>";
 	}
 	
 	@Override

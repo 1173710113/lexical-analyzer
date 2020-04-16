@@ -15,30 +15,19 @@ import grammar.production.Production;
 
 public class Follow {
 
-	private Map<NonterminalSymbol, Set<TerminalSymbol>> map;
-	private Map<NonterminalSymbol, Set<TerminalSymbol>> firstMap;
-	private NonterminalSymbol startSymbol;
-	private Set<Production> productions;
-
-	public Follow(Map<NonterminalSymbol, Set<TerminalSymbol>> firstMap, NonterminalSymbol startSymbol,
-			Set<Production> productions) {
-		this.firstMap = firstMap;
-		this.startSymbol = startSymbol;
-		this.productions = productions;
-		this.map = new LinkedHashMap<>();
+	public static Map<NonterminalSymbol, Set<TerminalSymbol>> getFollow(Map<NonterminalSymbol, Set<TerminalSymbol>> firstMap,
+			NonterminalSymbol startSymbol, Set<Production> productions) {
+		Map<NonterminalSymbol, Set<TerminalSymbol>> map = new LinkedHashMap<>();
 		for (NonterminalSymbol nonterminalSymbol : firstMap.keySet()) {
-			this.map.put(nonterminalSymbol, new LinkedHashSet<TerminalSymbol>());
+			map.put(nonterminalSymbol, new LinkedHashSet<TerminalSymbol>());
 		}
-	}
-
-	public Map<NonterminalSymbol, Set<TerminalSymbol>> getFollow() {
 		boolean flag = false;
 		do {
 			flag = false;
 			for (Production production : productions) {
 				NonterminalSymbol nonterminalSymbol = production.getNonterminalSymbol();
 				Set<TerminalSymbol> followList = map.get(nonterminalSymbol);
-				if (isStartSymbol(nonterminalSymbol)) {
+				if (isStartSymbol(startSymbol, nonterminalSymbol)) {
 					flag = flag || addEndSymbole(followList);
 				}
 				List<GrammarSymbol> grammarSymbols = production.getGrammarSymbolList();
@@ -68,15 +57,15 @@ public class Follow {
 		return map;
 	}
 
-	private boolean isLastIndex(int index, int size) {
+	private static boolean isLastIndex(int index, int size) {
 		return index == size - 1;
 	}
 
-	private boolean isStartSymbol(NonterminalSymbol nonterminalSymbol) {
+	private static boolean isStartSymbol(NonterminalSymbol startSymbol, NonterminalSymbol nonterminalSymbol) {
 		return startSymbol.equals(nonterminalSymbol);
 	}
 
-	private boolean addEndSymbole(Set<TerminalSymbol> followList) {
+	private static boolean addEndSymbole(Set<TerminalSymbol> followList) {
 		boolean flag = false;
 		TerminalSymbol endSymbol = EndTerminalSymbol.getInstance();
 		if (!followList.contains(endSymbol)) {
@@ -87,7 +76,7 @@ public class Follow {
 		return flag;
 	}
 
-	private boolean addListIntoFollow(Set<TerminalSymbol> followList, Set<TerminalSymbol> followListTemp) {
+	private static boolean addListIntoFollow(Set<TerminalSymbol> followList, Set<TerminalSymbol> followListTemp) {
 		boolean flag = false;
 		for (TerminalSymbol terminalSymbol : followListTemp) {
 			if (!followList.contains(terminalSymbol)) {

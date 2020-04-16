@@ -16,7 +16,6 @@ import grammar.grammarsymbol.GrammarSymbol;
 import grammar.grammarsymbol.NonterminalSymbol;
 import grammar.grammarsymbol.StringNonterminalSymbol;
 import grammar.grammarsymbol.TerminalSymbol;
-import grammar.grammarsymbol.TokenTerminalSymbol;
 import lexer.token.Token;
 import util.filereader.InputStrategy;
 
@@ -48,14 +47,19 @@ public class ProductionFactory {
 					grammarSymbols.add(EmptyTerminalSymbol.getInstance());
 					break;
 				case "terminalSymbol":
-					TerminalSymbol grammarTerminalSymbol = new TokenTerminalSymbol(new Token(grammarSymbolJSONObject.getInteger("tag")));
+					TerminalSymbol grammarTerminalSymbol = new Token(grammarSymbolJSONObject.getInteger("tag"));
 					grammarSymbols.add(grammarTerminalSymbol);
 					break;
 				default:
 					throw new IllegalArgumentException("Unexpected value: " + type);
 				}
 			}
-			Production production = new Production(nonterminalSymbol, grammarSymbols);
+			Production production;
+			if(grammarSymbols.contains(EmptyTerminalSymbol.getInstance())) {
+				production = new EmptyProduction(nonterminalSymbol);
+			}else {
+				 production = new Production(nonterminalSymbol, grammarSymbols);
+			}
 			productions.add(production);
 		}
 		return productions;
