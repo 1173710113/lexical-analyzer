@@ -50,4 +50,10 @@ public class TokenTerminalSymbolReadHead implements TerminalSymbolReadHead {
 
 	}
 
+	@Override
+	public void reset() {
+		cursor = 0;
+		
+	}
+
 }

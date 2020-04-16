@@ -28,4 +28,9 @@ public interface ReadHead<T> {
 	 */
 	public void skipBlank();
 	
+	/**
+	 * 
+	 */
+	public void reset();
+	
 }

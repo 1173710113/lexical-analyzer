@@ -41,4 +41,10 @@ public class TerminalSymbolReadHeadImp implements  TerminalSymbolReadHead{
 		
 	}
 
+	@Override
+	public void reset() {
+		cursor = 0;
+		
+	}
+
 }

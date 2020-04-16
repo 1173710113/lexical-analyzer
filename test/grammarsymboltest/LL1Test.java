@@ -1,7 +1,5 @@
 package grammarsymboltest;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,32 +30,32 @@ class LL1Test {
 	@Test
 	void test() throws FileNotFoundException, RecognizeException, NullPredictionException {
 		Set<Production> productions = ProductionFactory.getProductionsFormJSONFile("text\\grammar.json");
-		//System.out.println(productions);
+		System.out.println(productions);
 		Map<NonterminalSymbol, Set<TerminalSymbol>> firstMap = First.getNonterminalSymbolFirstSetMap(productions);
 		for(Map.Entry<NonterminalSymbol, Set<TerminalSymbol>> entry : firstMap.entrySet()) {
-			//System.out.println("FIRST:" + entry);
+			System.out.println("FIRST:" + entry);
 		}
 		NonterminalSymbol startSymbol = (new ArrayList<Production>(productions)).get(0).getNonterminalSymbol();
 		Map<NonterminalSymbol, Set<TerminalSymbol>> followMap = Follow.getFollow(firstMap, startSymbol, productions);
 		for(Map.Entry<NonterminalSymbol, Set<TerminalSymbol>> entry : followMap.entrySet()) {
-			//System.out.println("FOLLOW:" + entry);
+			System.out.println("FOLLOW:" + entry);
 		}
 		Map<Production, Set<TerminalSymbol>> selectMap = Select.getProductionSelectSet(productions, firstMap, followMap);
 		for(Map.Entry<Production, Set<TerminalSymbol>> entry : selectMap.entrySet()) {
-			//System.out.println("SELECT:" + entry);
+			System.out.println("SELECT:" + entry);
 		}
 		PredictingAnalysisTable predictingAnalysisTable = new PredictingAnalysisTable(selectMap);
-		//System.out.println(predictingAnalysisTable);
+		System.out.println(predictingAnalysisTable);
 		LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzer();
 		lexicalAnalyzer.lexicalAnalyse();
 		List<Token> tokens = lexicalAnalyzer.getResultToken();
 		TerminalSymbolReadHead readHead = new TokenTerminalSymbolReadHead(tokens);
-		//System.out.println(tokens);
-		//List<Production> grammatAnalyseResult = GrammaticalAnalyzer.grammaticalAnalyse(predictingAnalysisTable, readHead, startSymbol);
-		//System.out.println(grammatAnalyseResult);
+		System.out.println(tokens);
+		List<Production> grammatAnalyseResult = GrammaticalAnalyzer.grammaticalAnalyse(predictingAnalysisTable, readHead, startSymbol);
+		System.out.println(grammatAnalyseResult);
 		GrammarAnalysisTreeNode grammarAnalysisTreeNode = new GrammarAnalysisTreeNode(startSymbol);
+		readHead.reset();
 		GrammaticalAnalyzer.getGammarTree(predictingAnalysisTable, readHead,grammarAnalysisTreeNode);
-		//System.out.println(grammarAnalysisTreeNode.toString());
 		printTree(grammarAnalysisTreeNode, 0);
 		
 	}

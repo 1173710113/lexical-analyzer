@@ -57,5 +57,11 @@ public class CharacterReadHead implements ReadHead<Character> {
 		return blankCharacterList.contains(text.charAt(cursor));
 	}
 
+	@Override
+	public void reset() {
+		cursor = 0;
+		
+	}
+
 
 }
