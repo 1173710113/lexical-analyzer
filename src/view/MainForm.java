@@ -19,6 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import exception.dfa.InValidInputException;
+import exception.grammar.NullPredictionException;
 import exception.recognize.RecognizeException;
 import util.filereader.InputStrategy;
 
@@ -34,10 +35,13 @@ class MainForm extends JFrame implements ActionListener {
 	private JMenuBar main_menu_bar;
 	private JMenu menu_file;
 	private JMenu menu_lexical;
+	private JMenu menu_grammar;
 	private JMenuItem file_open;
 	private JMenuItem exit;
 	private JMenuItem lexical_regulation;
 	private JMenuItem lexical_analysis;
+	private JMenuItem grammar_regulation;
+	private JMenuItem grammar_analysis;
 
 	private JLabel lb_text_edit;
 
@@ -56,6 +60,7 @@ class MainForm extends JFrame implements ActionListener {
 		main_menu_bar = new JMenuBar();
 		menu_file = new JMenu("文件");
 		menu_lexical = new JMenu("词法分析器");
+		menu_grammar = new JMenu("语法分析器");
 
 		file_open = new JMenuItem("打开");
 		exit = new JMenuItem("退出");
@@ -72,6 +77,15 @@ class MainForm extends JFrame implements ActionListener {
 		menu_lexical.add(lexical_regulation);
 		menu_lexical.add(lexical_analysis);
 		main_menu_bar.add(menu_lexical);
+		
+		grammar_regulation = new JMenuItem("语法规则");
+		grammar_regulation.addActionListener(this);
+		grammar_analysis = new JMenuItem("语法分析");
+		grammar_analysis.addActionListener(this);
+		menu_grammar.add(grammar_regulation);
+		menu_grammar.add(grammar_analysis);
+		main_menu_bar.add(menu_grammar);
+		
 		this.setJMenuBar(main_menu_bar);
 
 		main_panel = new JPanel();
@@ -153,6 +167,34 @@ class MainForm extends JFrame implements ActionListener {
 
 		} else if (e.getSource() == exit) {
 			System.exit(1);
+		} else if(e.getSource() == grammar_regulation) {
+			try {
+				GrammarRuleForm grForm = new GrammarRuleForm();
+				grForm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				grForm.setResizable(false);
+				grForm.setVisible(true);
+			} catch (InValidInputException | FileNotFoundException | RecognizeException e1) {
+				// TODO 自动生成的 catch 块
+				e1.printStackTrace();
+			}
+		}else if(e.getSource() == grammar_analysis) {
+			if (ta_input.getText().equals("")) {
+				JOptionPane.showMessageDialog(main_panel, "您什么都没输入", "error", JOptionPane.ERROR_MESSAGE);
+				System.out.println("nothing input!");
+			} else {
+				List<String> inputs = Arrays.asList(ta_input.getText().split("\n"));
+				GrammarAnalyzeResultForm grammarAnalyzeResultForm;
+				try {
+					grammarAnalyzeResultForm = new GrammarAnalyzeResultForm(inputs);
+					grammarAnalyzeResultForm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					grammarAnalyzeResultForm.setResizable(false);
+					grammarAnalyzeResultForm.setVisible(true);
+				} catch (InValidInputException | FileNotFoundException | RecognizeException | NullPredictionException e1) {
+					// TODO 自动生成的 catch 块
+					e1.printStackTrace();
+				}
+				
+			}
 		}
 	}
 

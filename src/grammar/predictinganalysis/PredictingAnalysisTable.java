@@ -19,7 +19,7 @@ public class PredictingAnalysisTable {
 	private Map<NonterminalSymbol, Integer> nonterminalSymbolMap;
 	private Map<TerminalSymbol, Integer> terminalSymbolMap;
 	private Production[][] table;
-
+	
 	public PredictingAnalysisTable(Map<Production, Set<TerminalSymbol>> selectMap
 			) {
 		Set<NonterminalSymbol> nonterminalSymbols = new LinkedHashSet<>(); 
@@ -106,5 +106,20 @@ public class PredictingAnalysisTable {
 			terminalSymbols.addAll(selectSet);
 		}
 	}
+
+	/**
+	 * @return the nonterminalSymbolMap
+	 */
+	public Map<NonterminalSymbol, Integer> getNonterminalSymbolMap() {
+		return nonterminalSymbolMap;
+	}
+
+	/**
+	 * @return the terminalSymbolMap
+	 */
+	public Map<TerminalSymbol, Integer> getTerminalSymbolMap() {
+		return terminalSymbolMap;
+	}
+
 
 }
