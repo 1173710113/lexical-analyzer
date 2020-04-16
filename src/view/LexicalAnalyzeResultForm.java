@@ -41,11 +41,11 @@ public class LexicalAnalyzeResultForm extends JFrame implements ActionListener{
 	private JTable tb_DFA;
 	private JTable tb_error;
 	
-	private String[] unitTitle = {"tokenåºåˆ—","ç±»å‹"};
+	private String[] unitTitle = {"tokenĞòÁĞ","ÀàĞÍ"};
 	private String[][] unitData = {{}};
 	private Character[] DFATitle;
 	private String[][] DFAData = {{"1","2"}};
-	private String[] errorTitle = {"é”™è¯¯"};
+	private String[] errorTitle = {"´íÎó"};
 	private String[][] errorData;
 	
 	private List<String> inputs;
@@ -63,16 +63,16 @@ public class LexicalAnalyzeResultForm extends JFrame implements ActionListener{
 	public void initPanel() {
 		main_panel = new JPanel();
 		main_panel.setLayout(null);
-		lb_lexical = new JLabel("è¯æ³•åˆ†æ");
+		lb_lexical = new JLabel("´Ê·¨·ÖÎö");
 		main_panel.add(lb_lexical);
 		lb_lexical.setBounds(875, 10, 70, 20);
-		lb_unit = new JLabel("è¯æ³•å•å…ƒ");
+		lb_unit = new JLabel("´Ê·¨µ¥Ôª");
 		main_panel.add(lb_unit);
 		lb_unit.setBounds(275, 50, 70, 20);
-		lb_DFA = new JLabel("DFAè½¬æ¢å›¾");
+		lb_DFA = new JLabel("DFA×ª»»Í¼");
 		main_panel.add(lb_DFA);
 		lb_DFA.setBounds(875, 50, 70, 20);
-		lb_error = new JLabel("è¯æ³•é”™è¯¯");
+		lb_error = new JLabel("´Ê·¨´íÎó");
 		main_panel.add(lb_error);
 		lb_error.setBounds(1475, 50, 70, 20);
 		
@@ -123,7 +123,7 @@ public class LexicalAnalyzeResultForm extends JFrame implements ActionListener{
 		add(main_panel);
 	}
 	
-	//æ·»åŠ DFAè½¬æ¢å›¾æ•°æ®
+	//Ìí¼ÓDFA×ª»»Í¼Êı¾İ
 	public void addDFA() throws FileNotFoundException, RecognizeException, InValidInputException {
 		DFAFactory dfaFactory = DFAFactory.getInstance();
 		String dfaFilePath = "text\\text2.txt";
@@ -139,7 +139,7 @@ public class LexicalAnalyzeResultForm extends JFrame implements ActionListener{
 			String state = statesList.get(i);
 			DFAData[i][0] = state;
 			if(dfa.isAcceptable(state)) {
-				DFAData[i][0] += " (ç»ˆæ­¢çŠ¶æ€)";
+				DFAData[i][0] += "(ÖÕÖ¹×´Ì¬)";
 			}
 			for (int j = 1; j < inputList.size(); j++) {
 				try {
@@ -151,7 +151,7 @@ public class LexicalAnalyzeResultForm extends JFrame implements ActionListener{
 		}
 	}
 	
-	//æ·»åŠ tokenåºåˆ—æ•°æ®
+	//Ìí¼ÓtokenĞòÁĞÊı¾İ
 	public void addUnit() throws FileNotFoundException, RecognizeException {
 		lexicalAnalyzer = new LexicalAnalyzer();
 		lexicalAnalyzer.setReadHeadFromStringList(inputs);
@@ -165,7 +165,7 @@ public class LexicalAnalyzeResultForm extends JFrame implements ActionListener{
 		
 	}
 	
-	//æ·»åŠ é”™è¯¯æ•°æ®
+	//Ìí¼Ó´íÎóÊı¾İ
 	public void addError() {
 		List<ErrorToken> errorTokenList = lexicalAnalyzer.getErrorToken();
 		errorData = new String[errorTokenList.size()][1];
