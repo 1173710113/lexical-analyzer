@@ -19,7 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import exception.dfa.InValidInputException;
-import exception.grammar.NullPredictionException;
+import exception.grammar.SynchException;
 import exception.recognize.RecognizeException;
 import util.filereader.InputStrategy;
 
@@ -173,7 +173,7 @@ class MainForm extends JFrame implements ActionListener {
 				grForm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				grForm.setResizable(false);
 				grForm.setVisible(true);
-			} catch (InValidInputException | FileNotFoundException | RecognizeException e1) {
+			} catch (InValidInputException | FileNotFoundException | RecognizeException | SynchException e1) {
 				// TODO 自动生成的 catch 块
 				e1.printStackTrace();
 			}
@@ -189,7 +189,7 @@ class MainForm extends JFrame implements ActionListener {
 					grammarAnalyzeResultForm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					grammarAnalyzeResultForm.setResizable(false);
 					grammarAnalyzeResultForm.setVisible(true);
-				} catch (InValidInputException | FileNotFoundException | RecognizeException | NullPredictionException e1) {
+				} catch (InValidInputException | FileNotFoundException | RecognizeException  e1) {
 					// TODO 自动生成的 catch 块
 					e1.printStackTrace();
 				}

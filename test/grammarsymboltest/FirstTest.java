@@ -11,6 +11,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import exception.grammar.NullPredictionException;
+import exception.grammar.SynchException;
 import grammar.GrammaticalAnalyzer;
 import grammar.grammarsymbol.EndTerminalSymbol;
 import grammar.grammarsymbol.NonterminalSymbol;
@@ -29,7 +30,7 @@ import util.readhead.TerminalSymbolReadHeadImp;
 class FirstTest {
 
 	@Test
-	void test() throws NullPredictionException {
+	void test() throws NullPredictionException, SynchException {
 		
 		NonterminalSymbol E = new StringNonterminalSymbol("E");
 		NonterminalSymbol T = new StringNonterminalSymbol("T");
@@ -84,7 +85,7 @@ class FirstTest {
 		nonterminalSymbols.add(T);
 		nonterminalSymbols.add(T_);
 		nonterminalSymbols.add(F);
-		PredictingAnalysisTable predictingAnalysisTable = new PredictingAnalysisTable(selectMap);
+		PredictingAnalysisTable predictingAnalysisTable = new PredictingAnalysisTable(selectMap, followMap);
 		System.out.println(predictingAnalysisTable.toString());
 		assertTrue(predictingAnalysisTable.getPredict(E, id).equals(production1));
 		assertTrue(predictingAnalysisTable.getPredict(E, leftBracket).equals(production1));

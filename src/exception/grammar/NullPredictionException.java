@@ -1,10 +1,9 @@
 package exception.grammar;
 
-import exception.MyException;
 import grammar.grammarsymbol.NonterminalSymbol;
 import grammar.grammarsymbol.TerminalSymbol;
 
-public class NullPredictionException extends MyException{
+public class NullPredictionException extends GrammarException{
 
 	/**
 	 * 

@@ -9,6 +9,8 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import exception.grammar.NullPredictionException;
+import exception.grammar.SynchException;
+import exception.grammar.TerminalSymbolNotMatchException;
 import exception.recognize.RecognizeException;
 import grammar.GrammaticalAnalyzer;
 import grammar.grammarsymbol.NonterminalSymbol;
@@ -28,7 +30,7 @@ import util.readhead.TokenTerminalSymbolReadHead;
 class LL1Test {
 
 	@Test
-	void test() throws FileNotFoundException, RecognizeException, NullPredictionException {
+	void test() throws FileNotFoundException, RecognizeException, NullPredictionException, TerminalSymbolNotMatchException, SynchException {
 		Set<Production> productions = ProductionFactory.getProductionsFormJSONFile("text\\grammar.json");
 		System.out.println(productions);
 		Map<NonterminalSymbol, Set<TerminalSymbol>> firstMap = First.getNonterminalSymbolFirstSetMap(productions);
@@ -44,7 +46,7 @@ class LL1Test {
 		for(Map.Entry<Production, Set<TerminalSymbol>> entry : selectMap.entrySet()) {
 			System.out.println("SELECT:" + entry);
 		}
-		PredictingAnalysisTable predictingAnalysisTable = new PredictingAnalysisTable(selectMap);
+		PredictingAnalysisTable predictingAnalysisTable = new PredictingAnalysisTable(selectMap, followMap);
 		System.out.println(predictingAnalysisTable);
 		LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzer();
 		lexicalAnalyzer.lexicalAnalyse();
@@ -53,9 +55,10 @@ class LL1Test {
 		System.out.println(tokens);
 		List<Production> grammatAnalyseResult = GrammaticalAnalyzer.grammaticalAnalyse(predictingAnalysisTable, readHead, startSymbol);
 		System.out.println(grammatAnalyseResult);
-		GrammarAnalysisTreeNode grammarAnalysisTreeNode = new GrammarAnalysisTreeNode(startSymbol);
 		readHead.reset();
-		GrammaticalAnalyzer.getGammarTree(predictingAnalysisTable, readHead,grammarAnalysisTreeNode);
+		GrammaticalAnalyzer grammaticalAnalyzer = new GrammaticalAnalyzer();
+		GrammarAnalysisTreeNode grammarAnalysisTreeNode = grammaticalAnalyzer.analyze(readHead);
+	
 		printTree(grammarAnalysisTreeNode, 0);
 		
 	}

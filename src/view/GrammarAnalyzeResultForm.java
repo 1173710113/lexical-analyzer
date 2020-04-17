@@ -4,11 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,17 +20,8 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 import exception.dfa.InValidInputException;
-import exception.grammar.NullPredictionException;
 import exception.recognize.RecognizeException;
 import grammar.GrammaticalAnalyzer;
-import grammar.grammarsymbol.NonterminalSymbol;
-import grammar.grammarsymbol.TerminalSymbol;
-import grammar.predictinganalysis.First;
-import grammar.predictinganalysis.Follow;
-import grammar.predictinganalysis.PredictingAnalysisTable;
-import grammar.predictinganalysis.Select;
-import grammar.production.Production;
-import grammar.production.ProductionFactory;
 import grammar.tree.GrammarAnalysisTreeNode;
 import lexer.LexicalAnalyzer;
 import lexer.token.Token;
@@ -57,16 +45,15 @@ public class GrammarAnalyzeResultForm extends JFrame implements ActionListener{
 	private JTable tb_error; 
 	private JScrollPane sp_grammar;
 	private JScrollPane sp_error;
-	private JFrame frame_tree;
 	private JTree tree;
     private DefaultMutableTreeNode root;
 	
-	private String[] errortitle = {"错误项","错误原因","行数"};
-	private String[][] errordata = {};
+	private String[] errortitle = {"错误项"		};
+	private String[][] errordata;
 	
 	private List<String> inputs;
 	
-	public GrammarAnalyzeResultForm(List<String> inputs) throws FileNotFoundException, RecognizeException, InValidInputException, NullPredictionException {
+	public GrammarAnalyzeResultForm(List<String> inputs) throws FileNotFoundException, RecognizeException, InValidInputException {
 		this.inputs = inputs;
 		this.setTitle("语法分析");
 		this.setSize(1700, 800);
@@ -74,7 +61,9 @@ public class GrammarAnalyzeResultForm extends JFrame implements ActionListener{
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 	
-	private void initPanel() throws FileNotFoundException, RecognizeException, InValidInputException, NullPredictionException{
+	private void initPanel() throws FileNotFoundException, RecognizeException, InValidInputException{
+		addTree();
+
 		main_panel = new JPanel();
 		main_panel.setLayout(null);
 		lb_analyze = new JLabel("语法分析");
@@ -95,20 +84,16 @@ public class GrammarAnalyzeResultForm extends JFrame implements ActionListener{
 		sp_grammar = new JScrollPane(ta_grammar);
 		main_panel.add(sp_grammar);
 		sp_grammar.setBounds(50, 100, 500, 600);
-		
+		addGrammar();
 		tb_error = new JTable(errordata,errortitle);
-		tb_error.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		tb_error.setColumnSelectionAllowed(true);
+		tb_error.setEnabled(false);
 		sp_error = new JScrollPane(tb_error);
 		main_panel.add(sp_error);
 		sp_error.setBounds(1150, 100, 500, 600);
 		
-		tb_error.getColumnModel().getColumn(0).setPreferredWidth(140);
-		tb_error.getColumnModel().getColumn(1).setPreferredWidth(300);
-		tb_error.getColumnModel().getColumn(2).setPreferredWidth(60);
 		
-		addTree();
-		addGrammar();
+
 		
 		DefaultTreeCellRenderer render=(DefaultTreeCellRenderer)(tree.getCellRenderer());
 		render.setLeafIcon(null);	//设置图标为空
@@ -133,25 +118,23 @@ public class GrammarAnalyzeResultForm extends JFrame implements ActionListener{
 	}
 	
 	//添加语法错误数据
-	private void addErrorData() {
-		
+	private void addErrorData(List<String> strList) {
+		errordata = new String[strList.size()][1];
+		for(int i = 0; i < strList.size(); i++) {
+			errordata[i][0] = strList.get(i);
+		}
 	}
 	
 	//添加分析树数据
-	private void addTree() throws FileNotFoundException, RecognizeException, NullPredictionException {
+	private void addTree() throws FileNotFoundException, RecognizeException {
 		LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzer();
 		lexicalAnalyzer.setReadHeadFromStringList(inputs);
 		lexicalAnalyzer.lexicalAnalyse();
 		List<Token> resultToken = lexicalAnalyzer.getResultToken();
 		TerminalSymbolReadHead readHead = new TokenTerminalSymbolReadHead(resultToken);
-		Set<Production> productions = ProductionFactory.getProductionsFormJSONFile("text\\grammar.json");
-		Map<NonterminalSymbol, Set<TerminalSymbol>> firstMap = First.getNonterminalSymbolFirstSetMap(productions);
-		NonterminalSymbol startSymbol = (new ArrayList<Production>(productions)).get(0).getNonterminalSymbol();
-		Map<NonterminalSymbol, Set<TerminalSymbol>> followMap = Follow.getFollow(firstMap, startSymbol, productions);
-		Map<Production, Set<TerminalSymbol>> selectMap = Select.getProductionSelectSet(productions, firstMap, followMap);
-		PredictingAnalysisTable predictingAnalysisTable = new PredictingAnalysisTable(selectMap);
-		GrammarAnalysisTreeNode grammarAnalysisTreeNode = new GrammarAnalysisTreeNode(startSymbol);
-		GrammaticalAnalyzer.getGammarTree(predictingAnalysisTable, readHead, grammarAnalysisTreeNode);
+		GrammaticalAnalyzer grammaticalAnalyzer = new GrammaticalAnalyzer();
+		GrammarAnalysisTreeNode grammarAnalysisTreeNode = grammaticalAnalyzer.analyze(readHead);
+		addErrorData(grammaticalAnalyzer.getErrorResult());
 		root = new DefaultMutableTreeNode(grammarAnalysisTreeNode.getNode().toString());
 		constructTree(grammarAnalysisTreeNode, root);
 		this.tree = new JTree(root);

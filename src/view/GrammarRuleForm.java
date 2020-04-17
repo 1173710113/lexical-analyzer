@@ -15,6 +15,7 @@ import javax.swing.JTable;
 
 import exception.dfa.InValidInputException;
 import exception.grammar.NullPredictionException;
+import exception.grammar.SynchException;
 import exception.recognize.RecognizeException;
 import grammar.grammarsymbol.NonterminalSymbol;
 import grammar.grammarsymbol.TerminalSymbol;
@@ -50,14 +51,14 @@ public class GrammarRuleForm extends JFrame implements ActionListener{
 	private String[] anatitle;
 	private String[][] anadata;
 	
-	public GrammarRuleForm() throws FileNotFoundException, RecognizeException, InValidInputException {
+	public GrammarRuleForm() throws FileNotFoundException, RecognizeException, InValidInputException, SynchException {
 		this.setTitle("语法规则");
 		this.setSize(1700, 800);
 		initPanel();
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 	
-	private void initPanel() throws FileNotFoundException {
+	private void initPanel() throws FileNotFoundException, SynchException {
 		addData();
 		main_panel = new JPanel();
 		main_panel.setLayout(null);
@@ -110,7 +111,7 @@ public class GrammarRuleForm extends JFrame implements ActionListener{
 	}
 	
 	//添加first集和follow集数据
-	private void addData() throws FileNotFoundException {
+	private void addData() throws FileNotFoundException, SynchException {
 		Set<Production> productions = ProductionFactory.getProductionsFormJSONFile("text\\grammar.json");
 		Map<NonterminalSymbol, Set<TerminalSymbol>> firstMap = First.getNonterminalSymbolFirstSetMap(productions);
 		NonterminalSymbol startSymbol = (new ArrayList<Production>(productions)).get(0).getNonterminalSymbol();
@@ -131,7 +132,7 @@ public class GrammarRuleForm extends JFrame implements ActionListener{
 			selectdata[j][1] = entry.getValue().toString();
 			j++;
 		}
-		PredictingAnalysisTable predictingAnalysisTable = new PredictingAnalysisTable(selectMap);
+		PredictingAnalysisTable predictingAnalysisTable = new PredictingAnalysisTable(selectMap, followMap);
 		Set<TerminalSymbol> terminalSymbols = predictingAnalysisTable.getTerminalSymbolMap().keySet();
 		anatitle = new String[terminalSymbols.size() + 1];
 		anatitle[0] = "";
