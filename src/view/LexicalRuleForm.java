@@ -40,7 +40,7 @@ public class LexicalRuleForm extends JFrame implements ActionListener {
 	private String[][] DFAData;	
 
 	public LexicalRuleForm() throws FileNotFoundException, RecognizeException, InValidInputException {
-		this.setTitle("Form1");
+		this.setTitle("¥ ∑®πÊ‘Ú");
 		this.setSize(1500, 800);
 		initPanel();
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);

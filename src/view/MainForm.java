@@ -36,12 +36,15 @@ class MainForm extends JFrame implements ActionListener {
 	private JMenu menu_file;
 	private JMenu menu_lexical;
 	private JMenu menu_grammar;
+	private JMenu menu_semantics;
 	private JMenuItem file_open;
 	private JMenuItem exit;
 	private JMenuItem lexical_regulation;
 	private JMenuItem lexical_analysis;
 	private JMenuItem grammar_regulation;
 	private JMenuItem grammar_analysis;
+	private JMenuItem semantics_regulation;
+	private JMenuItem semantics_analysis;
 
 	private JLabel lb_text_edit;
 
@@ -61,6 +64,7 @@ class MainForm extends JFrame implements ActionListener {
 		menu_file = new JMenu("文件");
 		menu_lexical = new JMenu("词法分析器");
 		menu_grammar = new JMenu("语法分析器");
+		menu_semantics = new JMenu("语义分析器");
 
 		file_open = new JMenuItem("打开");
 		exit = new JMenuItem("退出");
@@ -85,6 +89,14 @@ class MainForm extends JFrame implements ActionListener {
 		menu_grammar.add(grammar_regulation);
 		menu_grammar.add(grammar_analysis);
 		main_menu_bar.add(menu_grammar);
+		
+		semantics_regulation = new JMenuItem("语义规则");
+		semantics_regulation.addActionListener(this);
+		semantics_analysis = new JMenuItem("语义分析");
+		semantics_analysis.addActionListener(this);
+		menu_semantics.add(semantics_regulation);
+		menu_semantics.add(semantics_analysis);
+		main_menu_bar.add(menu_semantics);
 		
 		this.setJMenuBar(main_menu_bar);
 
@@ -193,7 +205,34 @@ class MainForm extends JFrame implements ActionListener {
 					// TODO 自动生成的 catch 块
 					e1.printStackTrace();
 				}
-				
+			}
+		}else if(e.getSource() == semantics_regulation) {
+			try {
+				SemanticsRuleForm semanticsRuleForm = new SemanticsRuleForm();
+				semanticsRuleForm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				semanticsRuleForm.setResizable(false);
+				semanticsRuleForm.setVisible(true);
+			}catch (InValidInputException | FileNotFoundException | RecognizeException e1) {
+				// TODO 自动生成的 catch 块
+				e1.printStackTrace();
+			}
+			
+		}else if(e.getSource() == semantics_analysis) {
+			if (ta_input.getText().equals("")) {
+				JOptionPane.showMessageDialog(main_panel, "您什么都没输入", "error", JOptionPane.ERROR_MESSAGE);
+				System.out.println("nothing input!");
+			} else {
+				List<String> inputs = Arrays.asList(ta_input.getText().split("\n"));
+				SemanticsAnalyzeResultForm semanticsAnalyzeResultForm;
+				try {
+					semanticsAnalyzeResultForm = new SemanticsAnalyzeResultForm(inputs);
+					semanticsAnalyzeResultForm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					semanticsAnalyzeResultForm.setResizable(false);
+					semanticsAnalyzeResultForm.setVisible(true);
+				} catch (InValidInputException | FileNotFoundException | RecognizeException  e1) {
+					// TODO 自动生成的 catch 块
+					e1.printStackTrace();
+				}
 			}
 		}
 	}
