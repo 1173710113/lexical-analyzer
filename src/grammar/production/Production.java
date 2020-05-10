@@ -1,9 +1,11 @@
 package grammar.production;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import grammar.grammarsymbol.GrammarSymbol;
 import grammar.grammarsymbol.NonterminalSymbol;
+import sdt.action.Action;
 
 public class Production {
 
@@ -29,6 +31,16 @@ public class Production {
 	 */
 	public List<GrammarSymbol> getGrammarSymbolList() {
 		return grammarSymbolList;
+	}
+	
+	public List<GrammarSymbol> getGrammarSymbolsWithoutAction(){
+		List<GrammarSymbol> grammarSymbols = new ArrayList<GrammarSymbol>();
+		for(GrammarSymbol grammarSymbol : grammarSymbolList) {
+			if(!(grammarSymbol instanceof Action)) {
+				grammarSymbols.add(grammarSymbol);
+			}
+		}
+		return grammarSymbols;
 	}
 	/**
 	 * @param nonterminalSymbol the nonterminalSymbol to set

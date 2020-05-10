@@ -30,4 +30,19 @@ public class EmptyTerminalSymbol implements TerminalSymbol {
 	public String toString() {
 		return symbol;
 	}
+
+	@Override
+	public Object getLexeme() {
+		return null;
+	}
+
+	@Override
+	public boolean hasLexeme() {
+		return false;
+	}
+
+	@Override
+	public String getName() {
+		return toString();
+	}
 }

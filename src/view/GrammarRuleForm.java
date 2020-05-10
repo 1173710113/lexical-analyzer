@@ -153,6 +153,8 @@ public class GrammarRuleForm extends JFrame implements ActionListener{
 					anadata[k][j] = predictingAnalysisTable.getPredict(nonterminalSymbol, terminalSymbol).toString();
 				} catch (NullPredictionException e) {
 					anadata[k][j] = "";
+				} catch (SynchException e) {
+					anadata[k][j] = "synch";
 				}
 				j++;
 			}

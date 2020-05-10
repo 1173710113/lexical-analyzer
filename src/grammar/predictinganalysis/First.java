@@ -26,7 +26,7 @@ public class First {
 			for (Production production : productionList) {
 				NonterminalSymbol nonterminalSymbol = production.getNonterminalSymbol();
 				Set<TerminalSymbol> firstList = firstMap.get(nonterminalSymbol);
-				List<GrammarSymbol> grammarSymbols = production.getGrammarSymbolList();
+				List<GrammarSymbol> grammarSymbols = production.getGrammarSymbolsWithoutAction();
 				Set<TerminalSymbol> terminalSymbols = getGrammarSymbolsFirstSet(grammarSymbols, firstMap);
 				for(TerminalSymbol terminalSymbol : terminalSymbols) {
 					if(!firstList.contains(terminalSymbol)) {
@@ -34,8 +34,6 @@ public class First {
 						flag = true;
 					}
 				}
-				
-
 			}
 		} while (flag);
 		return firstMap;

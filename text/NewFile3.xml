@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<productions>
+
+    <production value="S'">
+     <right>
+      <nonterminal>S</nonterminal>
+     </right>
+    </production>
+
+   <production value="S">
+    <right>
+      <nonterminal>L</nonterminal>
+      <terminal name="=">61</terminal>
+      <nonterminal>R</nonterminal>
+    </right>
+    <right>
+      <nonterminal>R</nonterminal>
+    </right>
+  </production>
+
+  <production value="L">
+    <right>
+      <terminal name="*">42</terminal>
+      <nonterminal>R</nonterminal>
+    </right>
+    <right>
+      <terminal name="id">264</terminal>
+    </right>
+  </production>
+
+  <production value="R">
+    <right>
+      <nonterminal>L</nonterminal>
+    </right>
+  </production>
+
+</productions>

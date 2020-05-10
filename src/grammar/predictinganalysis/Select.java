@@ -18,7 +18,7 @@ public class Select {
 		Map<Production, Set<TerminalSymbol>> map = new LinkedHashMap<>();
 		for(Production production : productions) {
 			map.put(production, new LinkedHashSet<TerminalSymbol>());
-			Set<TerminalSymbol> grammarSymbolsFirstSet = First.getGrammarSymbolsFirstSet(production.getGrammarSymbolList(), firstMap);
+			Set<TerminalSymbol> grammarSymbolsFirstSet = First.getGrammarSymbolsFirstSet(production.getGrammarSymbolsWithoutAction(), firstMap);
 			if(!grammarSymbolsFirstSet.contains(EmptyTerminalSymbol.getInstance())) {
 				map.get(production).addAll(grammarSymbolsFirstSet);
 			} else {

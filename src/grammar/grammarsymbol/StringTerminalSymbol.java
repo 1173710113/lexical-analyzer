@@ -31,4 +31,21 @@ public class StringTerminalSymbol implements TerminalSymbol{
 		return symbol;
 	}
 
+	@Override
+	public String getLexeme() {
+		return symbol;
+	}
+
+	@Override
+	public boolean hasLexeme() {
+		return true;
+	}
+
+	@Override
+	public String getName() {
+		return toString();
+	}
+	
+	
+
 }

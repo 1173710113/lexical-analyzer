@@ -30,7 +30,7 @@ public class Follow {
 				if (isStartSymbol(startSymbol, nonterminalSymbol)) {
 					flag = flag || addEndSymbole(followList);
 				}
-				List<GrammarSymbol> grammarSymbols = production.getGrammarSymbolList();
+				List<GrammarSymbol> grammarSymbols = production.getGrammarSymbolsWithoutAction();
 				int grammarSymbolsSize = grammarSymbols.size();
 				for (int i = 0; i < grammarSymbolsSize; i++) {
 					GrammarSymbol grammarSymbol = grammarSymbols.get(i);

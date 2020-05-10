@@ -30,4 +30,19 @@ public class Token implements TerminalSymbol{
 	public int hashCode() {
 		return tag;
 	}
+
+	@Override
+	public Object getLexeme() {
+		return null;
+	}
+
+	@Override
+	public boolean hasLexeme() {
+		return false;
+	}
+
+	@Override
+	public String getName() {
+		return Tag.tagToString(tag);
+	}
 }

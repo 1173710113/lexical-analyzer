@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<productions>
+
+<production value="E'">
+    <right>
+      <nonterminal>E</nonterminal>
+    </right>
+    </production>
+
+   <production value="E">
+    <right>
+      <nonterminal>E</nonterminal>
+      <terminal name="+">43</terminal>
+      <nonterminal>E</nonterminal>
+    </right>
+    <right>
+      <nonterminal>E</nonterminal>
+      <terminal name="*">42</terminal>
+      <nonterminal>E</nonterminal>
+    </right>
+    <right>
+      <terminal name="(">40</terminal>
+      <nonterminal>E</nonterminal>
+      <terminal name=")">41</terminal>
+    </right>
+    <right>
+      <terminal name="id">264</terminal>
+    </right>
+  </production>
+
+</productions>

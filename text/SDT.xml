@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<productions>
+
+	<production value="Program">
+    <right>
+      <nonterminal>P</nonterminal>
+    </right>
+  </production>
+
+  <production value="P">
+    <right>
+      <action name="{offset=0}">a1</action>
+      <nonterminal>D</nonterminal>
+      <nonterminal>P</nonterminal>
+    </right>
+    <right>
+      <nonterminal>S</nonterminal>
+      <nonterminal>P</nonterminal>
+    </right>
+    <right>
+      <empty></empty>
+    </right>
+  </production>
+
+  <production value="D">
+    <right>
+      <nonterminal>T</nonterminal>
+      <terminal name="id">264</terminal>
+      <action name="{enter(id.lexeme,T.type,offset);offset+=T.width;id=id.lexeme}">a2</action>
+      <nonterminal>A</nonterminal>
+      <terminal name=";">59</terminal>
+    </right>
+    <right>
+      <terminal name="proc">303</terminal>
+      <nonterminal>X</nonterminal>
+      <terminal name="id">264</terminal>
+      <action name="type='proc';enterproc(id.lexeme,type,offset);}">a3</action>
+      <terminal name="(">40</terminal>
+      <nonterminal>M</nonterminal>
+      <terminal name=")">41</terminal>
+      <terminal name="{">123</terminal>
+      <nonterminal>P</nonterminal>
+      <terminal name="}">125</terminal>
+    </right>
+    <right>
+      <terminal name="record">301</terminal>
+      <terminal name="id">264</terminal>
+      <action name="type='record';enterrecord(id.lexeme,type,offset);">a4</action>
+      <terminal name="{">123</terminal>
+      <nonterminal>P</nonterminal>
+      <terminal name="}">125</terminal>
+    </right>
+  </production>
+
+  <production value="A">
+    <right>
+      <terminal name=",">44</terminal>
+      <terminal name="id">264</terminal>
+      <action name="enter(id.lexeme,t,offset);offset+=w;id=id.lexeme}">a5</action>
+      <nonterminal>A</nonterminal>
+    </right>
+    <right>
+      <terminal name="=">61</terminal>
+      <nonterminal>F</nonterminal>
+      <action name="{gen(id'=' F.addr);}">a6</action>
+    </right>
+    <right>
+      <empty></empty>
+    </right>
+  </production>
+
+
+  <production value="T">
+    <right>
+      <nonterminal>X</nonterminal>
+      <action name="{t=X.type;w=X.width;}">a7</action>
+      <nonterminal>C</nonterminal>
+      <action name="T.type=C.type;T.width=C.width;}">a8</action>
+    </right>
+  </production>
+
+  <production value="X">
+    <right>
+      <terminal name="basic">257</terminal>
+      <action name="{X.type=basic.type;X.width=basic.width;}">a9</action>
+    </right>
+  </production>
+
+  <production value="M">
+    <right>
+      <nonterminal>X</nonterminal>
+      <terminal name="id">264</terminal>
+      <action name="enter(id.lexeme,X.type,offset);offset+=X.width;}">a10</action>
+      <nonterminal>M'</nonterminal>
+    </right>
+    <right>
+      <empty></empty>
+      <action name="M.quad=nextquad()">a38</action>
+    </right>
+  </production>
+
+  <production value="M'">
+    <right>
+      <terminal name=",">44</terminal>
+      <nonterminal>X</nonterminal>
+      <terminal name="id">264</terminal>
+      <action name="{enter(id.lexeme,X.type,offset);}">a11</action>
+      <nonterminal>M'</nonterminal>
+    </right>
+    <right>
+      <empty></empty>
+    </right>
+  </production>
+
+  <production value="C">
+    <right>
+      <terminal name="[">91</terminal>
+      <terminal name="num">270</terminal>
+      <terminal name="]">93</terminal>
+      <nonterminal>C</nonterminal>
+      <action name="{C.type = array(num.val,C1.type);C.width=num.val*C1.width;}">a12</action>
+    </right>
+    <right>
+      <empty></empty>
+      <action name="{C.type=t;C.width=w;}">a13</action>
+    </right>
+  </production>
+
+  <production value="S">
+    <right>
+      <nonterminal>L</nonterminal>
+      <terminal name="=">61</terminal>
+      <nonterminal>E</nonterminal>
+      <terminal name=";">59</terminal>
+      <action name="{gen(L.addr '=' E.addr)}">a14</action>
+    </right>
+  </production>
+
+  <production value="L">
+    <right>
+      <terminal name="id">264</terminal>
+      <action name="{L'.addr = id.lexeme}">a32</action>
+      <nonterminal>L'</nonterminal>
+      <action name="L.addr=lookup(id.lexeme) if L.addr = nil then error;}">a15</action>
+    </right>
+  </production>
+
+  <production value="L'">
+    <right>
+      <action name="L'.type = L'.type.subtype">a40</action>
+      <terminal name="[">91</terminal>
+      <terminal name="num">270</terminal>
+      <terminal name="]">93</terminal>
+      <nonterminal>L'</nonterminal>
+      <action name="newtemp = newtemp(); gen(newtemp = num * L'1.addr.type.width;) L'1.addr = id+}">a33</action>
+    </right>
+    <right>
+      <empty></empty>
+    </right>
+  </production>
+
+  <production value="S">
+    <right>
+      <terminal name="if">265</terminal>
+      <nonterminal>B</nonterminal>
+      <terminal name="else">260</terminal>
+      <nonterminal>M</nonterminal>
+      <nonterminal>S</nonterminal>
+      <nonterminal>N</nonterminal>
+      <terminal name="else">260</terminal>
+      <nonterminal>M</nonterminal>
+      <nonterminal>S</nonterminal>
+      <action name="{backpatch(B.trueList,M1.quad);backpatch(B.falseList,M2.quad);S.nextList=merge(merge(S1.nextList,N.nextList),S2.nextList);}">a16</action>
+    </right>
+    <right>
+      <terminal name="while">275</terminal>
+      <nonterminal>M</nonterminal>
+      <nonterminal>B</nonterminal>
+      <terminal name="do">259</terminal>
+      <nonterminal>M</nonterminal>
+      <nonterminal>S</nonterminal>
+      <action name="{backpatch(S1.nextList,M1.quad);backpatch(B.trueList,M2.quad);S.nextList=B.falseList;gen('goto' M1.quad);}">a17</action>
+    </right>
+    <right>
+      <terminal name="switch">295</terminal>
+      <terminal name="(">40</terminal>
+      <nonterminal>E</nonterminal>
+      <terminal name=")">41</terminal>
+      <action name="{t=newtemp();gen(t '=' E.addr);}">a18</action>
+      <terminal name="{">123</terminal>
+      <nonterminal>N</nonterminal>
+      <terminal name="default">285</terminal>
+      <terminal name=":">58</terminal>
+      <action name="{label(Ln-1);}">a19</action>
+      <nonterminal>S</nonterminal>
+      <action name="{label(next)}">a20</action>
+      <terminal name="}">125</terminal>
+    </right>
+  </production>
+
+  <production value="N">
+    <right>
+      <terminal name="case">282</terminal>
+      <terminal name="num">270</terminal>
+      <terminal name=":">58</terminal>
+      <action name="">a21</action>
+      <nonterminal>S</nonterminal>
+      <action name="">a22</action>
+      <nonterminal>N</nonterminal>
+    </right>
+    <right>
+      <empty></empty>
+      <action name="N.nextlist=makelist(nextquad);gen('goto ')">a39</action>
+    </right>
+  </production>
+
+  <production value="S">
+    <right>
+      <terminal name="return">290</terminal>
+      <nonterminal>E</nonterminal>
+      <terminal name=";">59</terminal>
+    </right>
+    <right>
+      <terminal nmae="call">304</terminal>
+      <terminal name="id">264</terminal>
+      <terminal name="(">40</terminal>
+      <nonterminal>Elist</nonterminal>
+      <terminal name=")">41</terminal>
+      <terminal name=";">59</terminal>
+    </right>
+  </production>
+
+  <production value="Elist">
+    <right>
+      <nonterminal>E</nonterminal>
+      <nonterminal>Elist'</nonterminal>
+    </right>
+  </production>
+
+  <production value="Elist'">
+    <right>
+      <terminal name=",">44</terminal>
+      <nonterminal>E</nonterminal>
+      <nonterminal>Elist'</nonterminal>
+    </right>
+    <right>
+      <empty></empty>
+    </right>
+  </production>
+
+  <production value="E">
+    <right>
+      <nonterminal>G</nonterminal>
+      <action name="{E'.addr = G.addr }">a23</action>
+      <nonterminal>E'</nonterminal>
+      <action name="{E.addr = E'.addr}">a24</action>
+    </right>
+    <right>
+      <nonterminal>L</nonterminal>
+      <action name="{E.addr=L.addr}">a41</action>
+    </right>
+  </production>
+
+  <production value="E'">
+    <right>
+      <terminal name="+">43</terminal>
+      <nonterminal>G</nonterminal>
+      <action name="{E'2.addr = G.addr }">a23</action>
+      <nonterminal>E'</nonterminal>
+      <action name="{temp=newtemp(); gen(temp '=' E'1.addr '+' E'2.addr) E'1.addr=temp;}">a25</action>
+    </right>
+    <right>
+      <empty></empty>
+    </right>
+  </production>
+
+  <production value="G">
+    <right>
+      <nonterminal>F</nonterminal>
+      <action name="{G'.addr=F.addr}">a26</action>
+      <nonterminal>G'</nonterminal>
+      <action name="{G.addr = G'.addr}">a27</action>
+    </right>
+  </production>
+
+  <production value="G'">
+    <right>
+      <terminal name="*">42</terminal>
+      <nonterminal>F</nonterminal>
+      <action name="{G'2.addr=F.addr}">a29</action>
+      <nonterminal>G'</nonterminal>
+      <action name="{temp=newtemp();gen(temp '=' F.addr '*' + G'1.addr);G'1.addr=temp}">a30</action>
+    </right>
+    <right>
+      <empty></empty>
+    </right>
+  </production>
+
+  <production value="F">
+    <right>
+      <terminal name="(">40</terminal>
+      <nonterminal>E</nonterminal>
+      <terminal name=")">41</terminal>
+      <action name="{F.addr=E.addr}">a31</action>
+    </right>
+    <right>
+      <terminal name="id">264</terminal>
+    </right>
+    <right>
+      <terminal nmae="num">270</terminal>
+      <action name="{F.addr=num.lexeme}">a28</action>
+    </right>
+    <right>
+      <terminal name="char">278</terminal>
+    </right>
+  </production>
+
+  <production value="B">
+    <right>
+      <nonterminal>H</nonterminal>
+      <nonterminal>B</nonterminal>
+    </right>
+  </production>
+
+  <production value="B'">
+    <right>
+      <terminal name="or">271</terminal>
+      <nonterminal>H</nonterminal>
+      <nonterminal>B'</nonterminal>
+    </right>
+    <right>
+      <empty></empty>
+    </right>
+  </production>
+
+  <production value="H">
+    <right>
+      <nonterminal>I</nonterminal>
+      <nonterminal>H'</nonterminal>
+      <action name="">a36</action>
+    </right>
+  </production>
+
+  <production value="H'">
+    <right>
+      <terminal name="and">256</terminal>
+      <nonterminal>I</nonterminal>
+      <nonterminal>H'</nonterminal>
+    </right>
+    <right>
+      <empty></empty>
+    </right>
+  </production>
+
+  <production value="I">
+    <right>
+      <terminal name="not">33</terminal>
+      <nonterminal>B</nonterminal>
+    </right>
+    <right>
+      <nonterminal>E</nonterminal>
+      <nonterminal>relop</nonterminal>
+      <nonterminal>E</nonterminal>
+      <action name="">a35</action>
+    </right>
+    <right>
+      <terminal name="true">274</terminal>
+    </right>
+    <right>
+      <terminal name="false">262</terminal>
+    </right>
+  </production>
+
+  <production value="relop">
+    <right>
+      <terminal name="less">60</terminal>
+    </right>
+    <right>
+      <terminal name="le">267</terminal>
+    </right>
+    <right>
+      <terminal name="eq">261</terminal>
+    </right>
+    <right>
+      <terminal name="ne">269</terminal>
+    </right>
+    <right>
+      <terminal name="greater">62</terminal>
+    </right>
+    <right>
+      <terminal name="ge">263</terminal>
+    </right>
+  </production>
+
+
+
+
+
+
+
+
+</productions>

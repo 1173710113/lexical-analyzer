@@ -18,4 +18,14 @@ public class Num extends Token{
 	public String toString() {
 		return "<" + Tag.tagToString(tag) + "," + value + ">";
 	}
+	
+	@Override
+	public boolean hasLexeme() {
+		return true;
+	}
+	
+	@Override
+	public Integer getLexeme() {
+		return value;
+	}
 }

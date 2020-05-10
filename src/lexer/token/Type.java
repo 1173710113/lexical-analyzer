@@ -18,13 +18,20 @@ public class Type extends Word {
 		width = w;
 	}
 
-	public static final 
-		Type Int = new Type("int", Tag.BASIC, 4), 
-			Long = new Type("long", Tag.BASIC, 8),
-			 Short = new Type("short", Tag.BASIC, 2),
-			 Float = new Type("float", Tag.BASIC, 4), 
-			 Double = new Type("double", Tag.BASIC, 8),
-			 Char = new Type("char", Tag.BASIC, 1), 
-			 Bool = new Type("bool", Tag.BASIC, 1);
+	@Override
+	public boolean hasLexeme() {
+		return true;
+	}
+
+	@Override
+	public Object getLexeme() {
+		return this;
+	}
+	
+
+	public static final Type Int = new Type("int", Tag.BASIC, 4), Long = new Type("long", Tag.BASIC, 8),
+			Short = new Type("short", Tag.BASIC, 2), Float = new Type("float", Tag.BASIC, 4),
+			Double = new Type("double", Tag.BASIC, 8), Char = new Type("char", Tag.BASIC, 1),
+			Bool = new Type("bool", Tag.BASIC, 1);
 
 }

@@ -19,6 +19,18 @@ public class Word extends Token{
 		return "<" + Tag.tagToString(tag) + "," + lexeme + ">";
 	}
 	
+	@Override
+		public boolean hasLexeme() {
+			if(tag == Tag.ID)return true;
+			return false;
+		}
+	
+	@Override
+	public Object getLexeme() {
+		if(tag == Tag.ID)return lexeme;
+		return null;
+	}
+	
 	public static final Word 
 		and = new Word("&&", Tag.AND), or = new Word("||", Tag.OR),
 		eq  = new Word("==", Tag.EQ ), ne = new Word("!=", Tag.NE),

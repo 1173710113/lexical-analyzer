@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<productions>
+	<production value="P'">
+		<right>
+			<nonterminal>P</nonterminal>
+		</right>
+	</production>
+
+	<production value="P">
+	 	<right>
+      <nonterminal>D</nonterminal>
+    </right>
+    <right>
+      <nonterminal>S</nonterminal>
+    </right>
+	</production>
+
+  <production value="S">
+    <right>
+      <nonterminal>S</nonterminal>
+      <nonterminal>S</nonterminal>
+    </right>
+  </production>
+
+
+  <production value="D">
+    <right>
+      <nonterminal>D</nonterminal>
+      <nonterminal>D</nonterminal>
+    </right>
+    <right>
+      <terminal name="proc">303</terminal>
+      <terminal name="id">264</terminal>
+      <terminal name=";">59</terminal>
+      <nonterminal>D</nonterminal>
+      <nonterminal>S</nonterminal>
+    </right>
+    <right>
+      <nonterminal>T</nonterminal>
+      <terminal name="id">264</terminal>
+      <terminal name=";">59</terminal>
+    </right>
+  </production>
+
+  <production value="T">
+    <right>
+      <nonterminal>X</nonterminal>
+      <nonterminal>C</nonterminal>
+    </right>
+    <right>
+      <terminal name="record">301</terminal>
+      <nonterminal>D</nonterminal>
+    </right>
+  </production>
+
+  <production value="X">
+    <right>
+      <terminal name="num">270</terminal>
+    </right>
+    <right>
+      <terminal name="real">272</terminal>
+    </right>
+  </production>
+
+  <production value="C">
+    <right>
+      <terminal name="[">91</terminal>
+      <terminal name="num">270</terminal>
+      <terminal name="]">93</terminal>
+    </right>
+    <right>
+      <empty></empty>
+    </right>
+  </production>
+
+  <production value="S">
+    <right>
+      <terminal name="id">264</terminal>
+      <terminal name="=">61</terminal>
+      <nonterminal>E</nonterminal>
+      <terminal name=";">59</terminal>
+    </right>
+    <right>
+      <nonterminal>L</nonterminal>
+      <terminal name="=">61</terminal>
+      <nonterminal>E</nonterminal>
+      <terminal name=";">59</terminal>
+    </right>
+  </production>
+
+  <production value="E">
+    <right>
+      <nonterminal>E</nonterminal>
+      <terminal name="+">43</terminal>
+      <nonterminal>E</nonterminal>
+    </right>
+    <right>
+      <nonterminal>E</nonterminal>
+      <terminal name="*">42</terminal>
+      <nonterminal>E</nonterminal>
+    </right>
+    <right>
+      <terminal name="-">45</terminal>
+      <nonterminal>E</nonterminal>
+    </right>
+    <right>
+      <terminal name="(">40</terminal>
+      <nonterminal>E</nonterminal>
+      <terminal name=")">41</terminal>
+    </right>
+    <right>
+      <terminal name="id">264</terminal>
+    </right>
+    <right>
+      <terminal name="num">270</terminal>
+    </right>
+    <right>
+      <terminal name="real">272</terminal>
+    </right>
+    <right>
+      <nonterminal>L</nonterminal>
+    </right>
+  </production>
+
+  <production value="L">
+    <right>
+      <terminal name="id">264</terminal>
+      <terminal name="[">91</terminal>
+      <nonterminal>E</nonterminal>
+      <terminal name="]">93</terminal>
+    </right>
+    <right>
+      <nonterminal>L</nonterminal>
+      <terminal name="[">91</terminal>
+      <nonterminal>E</nonterminal>
+      <terminal name="]">93</terminal>
+    </right>
+  </production>
+
+  <production value="S">
+    <right>
+      <terminal name="if">265</terminal>
+      <nonterminal>B</nonterminal>
+      <terminal name="then">302</terminal>
+      <nonterminal>S</nonterminal>
+    </right>
+    <right>
+      <terminal name="if">265</terminal>
+      <nonterminal>B</nonterminal>
+      <terminal name="then">302</terminal>
+      <nonterminal>S</nonterminal>
+      <terminal name="else">260</terminal>
+      <nonterminal>S</nonterminal>
+    </right>
+    <right>
+      <terminal name="while">275</terminal>
+      <nonterminal>B</nonterminal>
+      <terminal name="do">259</terminal>
+      <nonterminal>S</nonterminal>
+    </right>
+  </production>
+
+  <production value="B">
+    <right>
+      <nonterminal>B</nonterminal>
+      <terminal name="or">271</terminal>
+      <nonterminal>B</nonterminal>
+    </right>
+    <right>
+      <nonterminal>B</nonterminal>
+      <terminal name="and">256</terminal>
+      <nonterminal>B</nonterminal>
+    </right>
+    <right>
+      <terminal name="not">33</terminal>
+      <nonterminal>B</nonterminal>
+    </right>
+    <right>
+      <terminal name="(">40</terminal>
+      <nonterminal>B</nonterminal>
+      <terminal name=")">41</terminal>
+    </right>
+    <right>
+      <nonterminal>E</nonterminal>
+      <nonterminal>relop</nonterminal>
+      <nonterminal>E</nonterminal>
+    </right>
+    <right>
+      <terminal name="true">274</terminal>
+    </right>
+    <right>
+      <terminal name="false">262</terminal>
+    </right>
+  </production>
+
+  <production value="relop">
+    <right>
+      <terminal name="less">60</terminal>
+    </right>
+    <right>
+      <terminal name="le">267</terminal>
+    </right>
+    <right>
+      <terminal name="eq">261</terminal>
+    </right>
+    <right>
+      <terminal name="ne">269</terminal>
+    </right>
+    <right>
+      <terminal name="greater">62</terminal>
+    </right>
+    <right>
+      <terminal name="ge">263</terminal>
+    </right>
+  </production>
+
+  <production value="S">
+    <right>
+      <terminal name="call">304</terminal>
+      <terminal name="id">264</terminal>
+      <terminal name="(">40</terminal>
+      <nonterminal>Elist</nonterminal>
+      <terminal name=")">41</terminal>
+    </right>
+  </production>
+
+  <production value="Elist">
+    <right>
+      <nonterminal>Elist</nonterminal>
+      <terminal name=",">44</terminal>
+      <nonterminal>E</nonterminal>
+    </right>
+    <right>
+      <nonterminal>E</nonterminal>
+    </right>
+  </production>
+</productions>

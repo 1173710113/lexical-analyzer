@@ -21,7 +21,6 @@ import grammar.predictinganalysis.First;
 import grammar.predictinganalysis.Follow;
 import grammar.predictinganalysis.PredictingAnalysisTable;
 import grammar.predictinganalysis.Select;
-import grammar.production.EmptyProduction;
 import grammar.production.Production;
 import grammar.production.ProductionFactory;
 import grammar.tree.GrammarAnalysisTreeNode;
@@ -76,7 +75,7 @@ public class GrammaticalAnalyzer {
 				Production production = predictingAnalysisTable.getPredict((NonterminalSymbol) grammarSymbol,
 						terminalSymbol);
 				productions.add(production);
-				if (!(production instanceof EmptyProduction)) {
+				if (!(production.getGrammarSymbolList().contains(EmptyTerminalSymbol.getInstance()))) {
 					List<GrammarSymbol> grammarSymbols = production.getGrammarSymbolList();
 					int grammarSymbolsSize = grammarSymbols.size();
 					for (int i = grammarSymbolsSize - 1; i >= 0; i--) {
@@ -104,7 +103,7 @@ public class GrammaticalAnalyzer {
 		if (grammarAnalysisTreeNode.getNode() instanceof TerminalSymbol) {
 			terminalSymbolProcedure(grammarAnalysisTreeNode, terminalSymbol);
 		} else if (grammarAnalysisTreeNode.getNode() instanceof NonterminalSymbol) {
-			nonterminalSymbolException(grammarAnalysisTreeNode, terminalSymbol);
+			nonterminalSymbolProcedure(grammarAnalysisTreeNode, terminalSymbol);
 		}
 		return;
 	}
@@ -121,7 +120,7 @@ public class GrammaticalAnalyzer {
 		}
 	}
 
-	private void nonterminalSymbolException(GrammarAnalysisTreeNode grammarAnalysisTreeNode,
+	private void nonterminalSymbolProcedure(GrammarAnalysisTreeNode grammarAnalysisTreeNode,
 			TerminalSymbol terminalSymbol) throws NullPredictionException, SynchException {
 		ReadHeadRollBack(readHead, terminalSymbol);
 		Production production = predictingAnalysisTable
