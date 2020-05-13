@@ -22,7 +22,7 @@ public class Action39 extends BaseAction{
 		List<Integer> nextList = new ArrayList<Integer>();
 		nextList.add(sdtAnalyzerState.nextQuad());
 		targetItem.addValue(grammarSymbol.toString() + ".nextlist", nextList);
-		System.out.println("goto ");
+		sdtAnalyzerState.gen("goto ");
 	}
 
 }

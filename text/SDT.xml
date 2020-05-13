@@ -4,21 +4,23 @@
 	<production value="Program">
     <right>
       <nonterminal>P</nonterminal>
+      <action name="{offset=0}">a1</action>
     </right>
   </production>
 
   <production value="P">
     <right>
-      <action name="{offset=0}">a1</action>
       <nonterminal>D</nonterminal>
       <nonterminal>P</nonterminal>
     </right>
     <right>
       <nonterminal>S</nonterminal>
+      <action name="">a46</action>
       <nonterminal>P</nonterminal>
     </right>
     <right>
       <empty></empty>
+      <action name="gen('exit')">a47</action>
     </right>
   </production>
 
@@ -163,10 +165,10 @@
     <right>
       <terminal name="if">265</terminal>
       <nonterminal>B</nonterminal>
-      <terminal name="else">260</terminal>
+      <terminal name="then">302</terminal>
       <nonterminal>M</nonterminal>
       <nonterminal>S</nonterminal>
-      <nonterminal>N</nonterminal>
+      <nonterminal>O</nonterminal>
       <terminal name="else">260</terminal>
       <nonterminal>M</nonterminal>
       <nonterminal>S</nonterminal>
@@ -208,6 +210,13 @@
       <action name="">a22</action>
       <nonterminal>N</nonterminal>
     </right>
+    <right>
+      <empty></empty>
+      <action name="">a48</action>
+    </right>
+  </production>
+
+  <production value="O">
     <right>
       <empty></empty>
       <action name="N.nextlist=makelist(nextquad);gen('goto ')">a39</action>
@@ -255,10 +264,6 @@
       <nonterminal>E'</nonterminal>
       <action name="{E.addr = E'.addr}">a24</action>
     </right>
-    <right>
-      <nonterminal>L</nonterminal>
-      <action name="{E.addr=L.addr}">a41</action>
-    </right>
   </production>
 
   <production value="E'">
@@ -305,6 +310,9 @@
     </right>
     <right>
       <terminal name="id">264</terminal>
+      <action name="">a32</action>
+      <nonterminal>L'</nonterminal>
+      <action name="{E.addr=L.addr}">a41</action>
     </right>
     <right>
       <terminal nmae="num">270</terminal>
@@ -318,7 +326,8 @@
   <production value="B">
     <right>
       <nonterminal>H</nonterminal>
-      <nonterminal>B</nonterminal>
+      <nonterminal>B'</nonterminal>
+      <action name="">a45</action>
     </right>
   </production>
 
@@ -365,30 +374,38 @@
     </right>
     <right>
       <terminal name="true">274</terminal>
+      <action name="">a42</action>
     </right>
     <right>
       <terminal name="false">262</terminal>
+      <action name="">a43</action>
     </right>
   </production>
 
   <production value="relop">
     <right>
       <terminal name="less">60</terminal>
+      <action name="">a44</action>
     </right>
     <right>
       <terminal name="le">267</terminal>
+      <action name="">a44</action>
     </right>
     <right>
       <terminal name="eq">261</terminal>
+      <action name="">a44</action>
     </right>
     <right>
       <terminal name="ne">269</terminal>
+      <action name="">a44</action>
     </right>
     <right>
       <terminal name="greater">62</terminal>
+      <action name="">a44</action>
     </right>
     <right>
       <terminal name="ge">263</terminal>
+      <action name="">a44</action>
     </right>
   </production>
 

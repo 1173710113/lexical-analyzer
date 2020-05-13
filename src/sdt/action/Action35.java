@@ -8,15 +8,16 @@ import grammar.grammarsymbol.GrammarSymbol;
 import sdt.SDTAnalyzerState;
 import sdt.SDTStackItem;
 
-public class Action35 extends BaseAction{
+public class Action35 extends BaseAction {
 
 	public Action35(String description) {
 		super(description);
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	@Override
-	public void execute(SDTAnalyzerState sdtAnalyzerState) throws NoIdentifierTableItemException{
+	public void execute(SDTAnalyzerState sdtAnalyzerState) throws NoIdentifierTableItemException {
+		SDTStackItem actionItem = sdtAnalyzerState.getFromTop(0);
 		SDTStackItem targetItem = sdtAnalyzerState.getFromTop(-1);
 		GrammarSymbol grammarSymbol = targetItem.getGrammarSymbol();
 		List<Integer> trueList = new ArrayList<Integer>();
@@ -25,8 +26,9 @@ public class Action35 extends BaseAction{
 		falseList.add(sdtAnalyzerState.nextQuad() + 1);
 		targetItem.addValue(grammarSymbol.toString() + ".truelist", trueList);
 		targetItem.addValue(grammarSymbol.toString() + ".falselist", falseList);
-		System.out.println(" go to ");
-		// TODO
+		sdtAnalyzerState.gen(
+				String.format("if %s %s %s goto ", actionItem.getValue("E.addr"), actionItem.getValue("relop.addr"), actionItem.getValue("E.addr'")));
+		sdtAnalyzerState.gen("goto ");
 	}
 
 }

@@ -1,11 +1,15 @@
 package sdt;
 
+import java.util.ArrayList;
+import java.util.EmptyStackException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
 import exception.sdt.DuplicateIdentifierItemException;
 import exception.sdt.NoIdentifierTableItemException;
+import exception.sdt.SDTException;
 import grammar.grammarsymbol.EmptyTerminalSymbol;
 import grammar.grammarsymbol.GrammarSymbol;
 import grammar.grammarsymbol.NonterminalSymbol;
@@ -22,6 +26,7 @@ public class SDTAnalyzerState {
 	private Map<String, Object> tempVariantMap;
 	private Stack<SDTStackItem> stack;
 	private int tempCount;
+	private List<String> genList;
 
 	public SDTAnalyzerState() {
 		this.offset = 0;
@@ -29,6 +34,7 @@ public class SDTAnalyzerState {
 		this.tempVariantMap = new HashMap<String, Object>();
 		this.stack = new Stack<SDTStackItem>();
 		this.tempCount = 0;
+		this.genList = new ArrayList<String>();
 	}
 
 	public GrammarSymbol peek() {
@@ -50,34 +56,38 @@ public class SDTAnalyzerState {
 		stack.push(new SDTStackItem(grammarSymbol));
 	}
 
-	public GrammarSymbol pop() throws Exception {
-		SDTStackItem sdtStackItem = stack.peek();
-		GrammarSymbol grammarSymbol = sdtStackItem.getGrammarSymbol();
-		if (grammarSymbol instanceof EmptyTerminalSymbol) {
-			stack.pop();
-		} else if (grammarSymbol instanceof TerminalSymbol) {
-			TerminalSymbol terminalSymbol = (TerminalSymbol) sdtStackItem.getGrammarSymbol();
-			if (terminalSymbol.hasLexeme()) {
-				copyAttributeToAction(terminalSymbol.getName() + ".lexeme", terminalSymbol.getLexeme());
+	public GrammarSymbol pop() throws SDTException {
+		if (!stack.isEmpty()) {
+			SDTStackItem sdtStackItem = stack.peek();
+			GrammarSymbol grammarSymbol = sdtStackItem.getGrammarSymbol();
+			if (grammarSymbol instanceof EmptyTerminalSymbol) {
+				stack.pop();
+			} else if (grammarSymbol instanceof TerminalSymbol) {
+				TerminalSymbol terminalSymbol = (TerminalSymbol) sdtStackItem.getGrammarSymbol();
+				if (terminalSymbol.hasLexeme()) {
+					copyAttributeToAction(terminalSymbol.getName() + ".lexeme", terminalSymbol.getLexeme());
+				}
+				stack.pop();
+			} else if (grammarSymbol instanceof NonterminalSymbol) {
+				if (!sdtStackItem.getValueMap().isEmpty()) {
+					copyAttributeToAction(sdtStackItem.getValueMap());
+				}
+				stack.pop();
+			} else if (grammarSymbol instanceof NonterminalSymbolSyn) {
+				if (!sdtStackItem.getValueMap().isEmpty()) {
+					copyAttributeToAction(sdtStackItem.getValueMap());
+				}
+				stack.pop();
+				grammarSymbol = pop();
+			} else if (grammarSymbol instanceof Action) {
+				((Action) sdtStackItem.getGrammarSymbol()).execute(this);
+				stack.pop();
+				grammarSymbol = pop();
 			}
-			stack.pop();
-		} else if (grammarSymbol instanceof NonterminalSymbol) {
-			if (!sdtStackItem.getValueMap().isEmpty()) {
-				copyAttributeToAction(sdtStackItem.getValueMap());
-			}
-			stack.pop();
-		} else if (grammarSymbol instanceof NonterminalSymbolSyn) {
-			if (!sdtStackItem.getValueMap().isEmpty()) {
-				copyAttributeToAction(sdtStackItem.getValueMap());
-			}
-			stack.pop();
-			grammarSymbol = pop();
-		} else if (grammarSymbol instanceof Action) {
-			((Action) sdtStackItem.getGrammarSymbol()).execute(this);
-			stack.pop();
-			grammarSymbol = pop();
+			return grammarSymbol;
+		} else {
+			return null;
 		}
-		return grammarSymbol;
 	}
 
 	public void setLexeme(TerminalSymbol terminalSymbol) {
@@ -93,14 +103,17 @@ public class SDTAnalyzerState {
 	private void copyAttributeToAction(Map<String, Object> src) {
 		SDTStackItem sdtStackItem = findNearestAction();
 		if (sdtStackItem != null) {
-			sdtStackItem.getValueMap().putAll(src);
+			for (Map.Entry<String, Object> entry : src.entrySet()) {
+				sdtStackItem.addValue(entry.getKey(), entry.getValue());
+			}
 		}
 	}
 
 	private void copyAttributeToAction(String key, Object value) {
 		SDTStackItem sdtStackItem = findNearestAction();
 		if (sdtStackItem != null) {
-			sdtStackItem.getValueMap().put(key, value);
+			sdtStackItem.addValue(key, value);
+			;
 		}
 	}
 
@@ -115,7 +128,10 @@ public class SDTAnalyzerState {
 		return null;
 	}
 
-	public boolean isStackEmpty() {
+	public boolean isStackEmpty() throws SDTException {
+		if (peek() == null) {
+			pop();
+		}
 		return peek() == null;
 	}
 
@@ -131,7 +147,7 @@ public class SDTAnalyzerState {
 		IdentifierTableItem item = new IdentifierTableItem(id, type, offset);
 		identifierTable.addItem(item);
 	}
-	
+
 	public IdentifierTableItem findSymbol(String id) throws NoIdentifierTableItemException {
 		return identifierTable.findItem(id);
 	}
@@ -148,9 +164,31 @@ public class SDTAnalyzerState {
 	public SDTStackItem getFromTop(int decrease) {
 		return stack.get(stack.size() - 1 + decrease);
 	}
-	
+
 	public int nextQuad() {
-		return 0;
+		return genList.size();
+	}
+
+	public void gen(String triple) {
+		System.out.println(genList.size() + ":" + triple);
+		genList.add(triple);
+	}
+
+	public void backPatch(List<Integer> list, Integer quad) {
+		if(list == null) return;
+		for (int num : list) {
+			genList.set(num, genList.get(num).concat(quad.toString()));
+			System.out.println(genList.get(num));
+		}
+	}
+
+	public List<Integer> merge(List<Integer> list1, List<Integer> list2) {
+		List<Integer> dst = new ArrayList<Integer>();
+		if (list1 != null)
+			dst.addAll(list1);
+		if (list2 != null)
+			dst.addAll(list2);
+		return dst;
 	}
 
 	/**

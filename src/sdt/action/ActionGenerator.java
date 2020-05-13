@@ -26,6 +26,18 @@ public class ActionGenerator {
 			return new Action14(description);
 		case "a15":
 			return new Action15(description);
+		case "a16":
+			return new Action16(description);
+		case "a17":
+			return new Action17(description);
+		case "a18":
+			return new Action18(description);
+		case "a20":
+			return new Action20(description);
+		case "a21":
+			return new Action21(description);
+		case "a22":
+			return new Action22(description);
 		case "a23":
 			return new Action23(description);
 		case "a24":
@@ -48,11 +60,28 @@ public class ActionGenerator {
 			return new Action32(description);
 		case "a33":
 			return new Action33(description);
+		case "a35":
+			return new Action35(description);
+		case "a36":
+			return new Action36(description);
+		case "a38":
+			return new Action38(description);
+		case "a39":
+			return new Action39(description);
 		case "a40":
 			return new Action40(description);
 		case "a41":
 			return new Action41(description);
-
+		case "a44":
+			return new Action44(description);
+		case "a45":
+			return new Action45(description);
+		case "a46":
+			return new Action46(description);
+		case "a47":
+			return new Action47(description);
+		case "a48":
+			return new Action48(description);
 		default:
 		}
 		return new BaseAction(description);

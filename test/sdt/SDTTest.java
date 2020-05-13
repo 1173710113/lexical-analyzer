@@ -52,9 +52,9 @@ public class SDTTest {
 		PredictingAnalysisTable predictingAnalysisTable = new PredictingAnalysisTable(selectMap, followMap);
 		LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzer();
 		List<String> inputs = new ArrayList<String>();
-		inputs.add("int[5][2] x;");
-		inputs.add("int y;");
-		inputs.add("y = x[3][1];");
+		//inputs.add("int[5][2] x; x[2][1] = 5; int y; y = x[2][1]; y = y + 1;");
+		//inputs.add("int x = 5; while x < 10 do x = x + 1;");
+		inputs.add("int x = 0; switch(x){ case 1: x = x + 1; case 2: x = x + 2; default: x = 3;}");
 		lexicalAnalyzer.setReadHeadFromStringList(inputs);
 		lexicalAnalyzer.lexicalAnalyse();
 		List<Token> resultToken = lexicalAnalyzer.getResultToken();

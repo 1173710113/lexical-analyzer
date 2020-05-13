@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import grammar.grammarsymbol.GrammarSymbol;
+import sdt.action.Action;
 
 public class SDTStackItem {
 
@@ -18,8 +19,12 @@ public class SDTStackItem {
 	public void addValue(String key, Object value) {
 		if (!valueMap.containsKey(key)) {
 			valueMap.put(key, value);
-		}else {
-			valueMap.put(key+ "'", value);
+		} else {
+			if (grammarSymbol instanceof Action) {
+				valueMap.put(key + "'", value);
+			} else {
+				valueMap.put(key, value);
+			}
 		}
 	}
 

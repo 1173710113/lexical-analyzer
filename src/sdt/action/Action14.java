@@ -13,7 +13,7 @@ public class Action14 extends BaseAction{
 	@Override
 	public void execute(SDTAnalyzerState sdtAnalyzerState){
 		SDTStackItem actionItem = sdtAnalyzerState.getStack().peek();
-		System.out.println(actionItem.getValue("L.addr") + " = " + actionItem.getValue("E.addr"));
+		sdtAnalyzerState.gen(actionItem.getValue("L.addr") + " = " + actionItem.getValue("E.addr"));
 	}
 
 }
