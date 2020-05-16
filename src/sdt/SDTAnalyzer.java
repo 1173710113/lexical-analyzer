@@ -19,7 +19,7 @@ public class SDTAnalyzer {
 		this.state = new SDTAnalyzerState();
 	}
 
-	public void grammaticalAnalyse(PredictingAnalysisTable predictingAnalysisTable,
+	public void analyse(PredictingAnalysisTable predictingAnalysisTable,
 			ReadHead<TerminalSymbol> readHead, NonterminalSymbol startSymbol) throws Exception {
 		state.push(startSymbol);
 		while (!state.isStackEmpty()) {
@@ -61,5 +61,21 @@ public class SDTAnalyzer {
 			return EndTerminalSymbol.getInstance();
 		}
 	}
+
+	/**
+	 * @return the state
+	 */
+	public SDTAnalyzerState getState() {
+		return state;
+	}
+
+	/**
+	 * @param state the state to set
+	 */
+	public void setState(SDTAnalyzerState state) {
+		this.state = state;
+	}
+	
+	
 
 }

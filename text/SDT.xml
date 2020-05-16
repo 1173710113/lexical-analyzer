@@ -15,7 +15,7 @@
     </right>
     <right>
       <nonterminal>S</nonterminal>
-      <action name="">a46</action>
+      <action name="backpatch(S.nextlist,nextquad)">a46</action>
       <nonterminal>P</nonterminal>
     </right>
     <right>
@@ -64,7 +64,7 @@
     <right>
       <terminal name="=">61</terminal>
       <nonterminal>F</nonterminal>
-      <action name="{gen(id'=' F.addr);}">a6</action>
+      <action name="{gen(id '=' F.addr);}">a6</action>
     </right>
     <right>
       <empty></empty>
@@ -106,7 +106,7 @@
       <terminal name=",">44</terminal>
       <nonterminal>X</nonterminal>
       <terminal name="id">264</terminal>
-      <action name="{enter(id.lexeme,X.type,offset);}">a11</action>
+      <action name="{enter(id.lexeme,X.type,offset); offset = offset + X.width}">a11</action>
       <nonterminal>M'</nonterminal>
     </right>
     <right>
@@ -120,7 +120,7 @@
       <terminal name="num">270</terminal>
       <terminal name="]">93</terminal>
       <nonterminal>C</nonterminal>
-      <action name="{C.type = array(num.val,C1.type);C.width=num.val*C1.width;}">a12</action>
+      <action name="{C.type = array(num.lexeme,C1.type);C.width=num.lexeme*C1.width;}">a12</action>
     </right>
     <right>
       <empty></empty>
@@ -143,7 +143,7 @@
       <terminal name="id">264</terminal>
       <action name="{L'.addr = id.lexeme}">a32</action>
       <nonterminal>L'</nonterminal>
-      <action name="L.addr=lookup(id.lexeme) if L.addr = nil then error;}">a15</action>
+      <action name="{L'.addr = L'1.addr}">a15</action>
     </right>
   </production>
 
@@ -154,7 +154,7 @@
       <terminal name="num">270</terminal>
       <terminal name="]">93</terminal>
       <nonterminal>L'</nonterminal>
-      <action name="newtemp = newtemp(); gen(newtemp = num * L'1.addr.type.width;) L'1.addr = id+}">a33</action>
+      <action name="newtemp = newtemp(); gen(newtemp = num * L'1..type.width;) if(L'1.arraytemp){temp = newtemp(); gen(temp '=' newtemp '+' L'.arrattemp)};L'.aarrytemp=newtemp;}">a33</action>
     </right>
     <right>
       <empty></empty>
@@ -172,7 +172,7 @@
       <terminal name="else">260</terminal>
       <nonterminal>M</nonterminal>
       <nonterminal>S</nonterminal>
-      <action name="{backpatch(B.trueList,M1.quad);backpatch(B.falseList,M2.quad);S.nextList=merge(merge(S1.nextList,N.nextList),S2.nextList);}">a16</action>
+      <action name="{backpatch(B.trueList,M1.quad);backpatch(B.falseList,M2.quad);S.nextList=merge(merge(S1.nextList,O.nextList),S2.nextList);}">a16</action>
     </right>
     <right>
       <terminal name="while">275</terminal>
@@ -188,14 +188,13 @@
       <terminal name="(">40</terminal>
       <nonterminal>E</nonterminal>
       <terminal name=")">41</terminal>
-      <action name="{t=newtemp();gen(t '=' E.addr);}">a18</action>
+      <action name="{temp=newtemp();gen(temp '=' E.addr);existlist = new list}">a18</action>
       <terminal name="{">123</terminal>
       <nonterminal>N</nonterminal>
       <terminal name="default">285</terminal>
       <terminal name=":">58</terminal>
-      <action name="{label(Ln-1);}">a19</action>
       <nonterminal>S</nonterminal>
-      <action name="{label(next)}">a20</action>
+      <action name="{backpatch(existlist, nextquad);}">a20</action>
       <terminal name="}">125</terminal>
     </right>
   </production>
@@ -205,21 +204,21 @@
       <terminal name="case">282</terminal>
       <terminal name="num">270</terminal>
       <terminal name=":">58</terminal>
-      <action name="">a21</action>
+      <action name="{backpatch(N.nextlist,nextquad);gen('if' temp '!=' num.lexeme 'goto'">a21</action>
       <nonterminal>S</nonterminal>
-      <action name="">a22</action>
+      <action name="existlist.add(quad);gen('goto')">a22</action>
       <nonterminal>N</nonterminal>
     </right>
     <right>
       <empty></empty>
-      <action name="">a48</action>
+      <action name="backpatch(N.nextlist,nextquad)">a48</action>
     </right>
   </production>
 
   <production value="O">
     <right>
       <empty></empty>
-      <action name="N.nextlist=makelist(nextquad);gen('goto ')">a39</action>
+      <action name="O.nextlist=makelist(nextquad);gen('goto ')">a39</action>
     </right>
   </production>
 
@@ -236,12 +235,14 @@
       <nonterminal>Elist</nonterminal>
       <terminal name=")">41</terminal>
       <terminal name=";">59</terminal>
+      <action name="lookup(id);gen(param o:paramlist);gen(call id paramlist.size)">a51</action>
     </right>
   </production>
 
   <production value="Elist">
     <right>
       <nonterminal>E</nonterminal>
+      <action name="paramlist=makelist(E.addr)">a49</action>
       <nonterminal>Elist'</nonterminal>
     </right>
   </production>
@@ -250,6 +251,7 @@
     <right>
       <terminal name=",">44</terminal>
       <nonterminal>E</nonterminal>
+      <action name="paramlist.add(E.addr)">a50</action>
       <nonterminal>Elist'</nonterminal>
     </right>
     <right>
@@ -260,9 +262,9 @@
   <production value="E">
     <right>
       <nonterminal>G</nonterminal>
-      <action name="{E'.addr = G.addr }">a23</action>
+      <action name="{G.addr = G.addr }">a23</action>
       <nonterminal>E'</nonterminal>
-      <action name="{E.addr = E'.addr}">a24</action>
+      <action name="{E'.addr = E'.addr}">a24</action>
     </right>
   </production>
 
@@ -270,7 +272,7 @@
     <right>
       <terminal name="+">43</terminal>
       <nonterminal>G</nonterminal>
-      <action name="{E'2.addr = G.addr }">a23</action>
+      <action name="{G.addr = G.addr }">a23</action>
       <nonterminal>E'</nonterminal>
       <action name="{temp=newtemp(); gen(temp '=' E'1.addr '+' E'2.addr) E'1.addr=temp;}">a25</action>
     </right>
@@ -310,9 +312,9 @@
     </right>
     <right>
       <terminal name="id">264</terminal>
-      <action name="">a32</action>
+      <action name="L'.addr=lookup(id.lexme); L'.type = lookup(id.lexeme).type">a32</action>
       <nonterminal>L'</nonterminal>
-      <action name="{E.addr=L.addr}">a41</action>
+      <action name="{F.addr=L'.addr}">a41</action>
     </right>
     <right>
       <terminal nmae="num">270</terminal>
@@ -320,6 +322,11 @@
     </right>
     <right>
       <terminal name="char">278</terminal>
+      <action name="F.addr = char.lexeme">a28</action>
+    </right>
+    <right>
+      <terminal name="real">272</terminal>
+      <action name="F.addr=real.lexeme">a28</action>
     </right>
   </production>
 
@@ -370,42 +377,42 @@
       <nonterminal>E</nonterminal>
       <nonterminal>relop</nonterminal>
       <nonterminal>E</nonterminal>
-      <action name="">a35</action>
+      <action name="{I.truelist=makelist(nexquad); I.falselist=makelist(nextquad+1);gen(if E1.addr relop.addr E2.addr goto );gen(goto)}">a35</action>
     </right>
     <right>
       <terminal name="true">274</terminal>
-      <action name="">a42</action>
+      <action name="{I.truelist=makelist(nextquad)}">a42</action>
     </right>
     <right>
       <terminal name="false">262</terminal>
-      <action name="">a43</action>
+      <action name="I.falselist=makelist(nextquad)">a43</action>
     </right>
   </production>
 
   <production value="relop">
     <right>
       <terminal name="less">60</terminal>
-      <action name="">a44</action>
+      <action name="relop.addr = less.lexeme">a44</action>
     </right>
     <right>
       <terminal name="le">267</terminal>
-      <action name="">a44</action>
+      <action name="relop.addr = le.lexeme">a44</action>
     </right>
     <right>
       <terminal name="eq">261</terminal>
-      <action name="">a44</action>
+      <action name="relop.addr = eq.lexeme">a44</action>
     </right>
     <right>
       <terminal name="ne">269</terminal>
-      <action name="">a44</action>
+      <action name="relop.addr = ne.lexeme">a44</action>
     </right>
     <right>
       <terminal name="greater">62</terminal>
-      <action name="">a44</action>
+      <action name="relop.addr = greater.lexeme">a44</action>
     </right>
     <right>
       <terminal name="ge">263</terminal>
-      <action name="">a44</action>
+      <action name="relop.addr = ge.lexeme">a44</action>
     </right>
   </production>
 

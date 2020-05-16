@@ -1,13 +1,13 @@
 package sdt.action;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import sdt.SDTAnalyzerState;
 import sdt.SDTStackItem;
 
-public class Action46 extends BaseAction {
+public class Action50 extends BaseAction {
 
-	public Action46(String description) {
+	public Action50(String description) {
 		super(description);
 		// TODO Auto-generated constructor stub
 	}
@@ -16,8 +16,8 @@ public class Action46 extends BaseAction {
 	@Override
 	public void execute(SDTAnalyzerState sdtAnalyzerState) {
 		SDTStackItem actionItem = sdtAnalyzerState.getFromTop(0);
-		sdtAnalyzerState.backPatch((ArrayList<Integer>)actionItem.getValue("S.nextlist"), sdtAnalyzerState.nextQuad());
-		
+		List<Object> paramList = (List<Object>) sdtAnalyzerState.findTemVariant("paramlist");
+		paramList.add(actionItem.getValue("E.addr"));
 	}
 
 }

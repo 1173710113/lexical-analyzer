@@ -1,7 +1,6 @@
 package sdt;
 
 import java.util.ArrayList;
-import java.util.EmptyStackException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +26,8 @@ public class SDTAnalyzerState {
 	private Stack<SDTStackItem> stack;
 	private int tempCount;
 	private List<String> genList;
+	private List<SDTException> exceptions;
+	private List<Quadruple> quadruples;
 
 	public SDTAnalyzerState() {
 		this.offset = 0;
@@ -35,6 +36,8 @@ public class SDTAnalyzerState {
 		this.stack = new Stack<SDTStackItem>();
 		this.tempCount = 0;
 		this.genList = new ArrayList<String>();
+		this.exceptions = new ArrayList<SDTException>();
+		this.quadruples = new ArrayList<Quadruple>();
 	}
 
 	public GrammarSymbol peek() {
@@ -175,10 +178,13 @@ public class SDTAnalyzerState {
 	}
 
 	public void backPatch(List<Integer> list, Integer quad) {
-		if(list == null) return;
+		if (list == null)
+			return;
 		for (int num : list) {
 			genList.set(num, genList.get(num).concat(quad.toString()));
+			quadruples.get(num).setResult(quad);
 			System.out.println(genList.get(num));
+			System.out.println(quadruples.get(num));
 		}
 	}
 
@@ -189,6 +195,17 @@ public class SDTAnalyzerState {
 		if (list2 != null)
 			dst.addAll(list2);
 		return dst;
+	}
+	
+	public void addSDTException(SDTException e) {
+		exceptions.add(e);
+		System.out.println(e);
+	}
+	
+	public void addQuadruple(Object op, Object arg1, Object arg2, Object result) {
+		Quadruple quadruple = new Quadruple(op, arg1, arg2, result);
+		System.out.println(quadruple);
+		quadruples.add(quadruple);
 	}
 
 	/**
@@ -220,6 +237,34 @@ public class SDTAnalyzerState {
 	}
 
 	/**
+	 * @return the tempCount
+	 */
+	public int getTempCount() {
+		return tempCount;
+	}
+
+	/**
+	 * @return the genList
+	 */
+	public List<String> getGenList() {
+		return genList;
+	}
+
+	/**
+	 * @return the exceptions
+	 */
+	public List<SDTException> getExceptions() {
+		return exceptions;
+	}
+
+	/**
+	 * @return the quadruples
+	 */
+	public List<Quadruple> getQuadruples() {
+		return quadruples;
+	}
+
+	/**
 	 * @param offset the offset to set
 	 */
 	public void setOffset(int offset) {
@@ -246,5 +291,35 @@ public class SDTAnalyzerState {
 	public void setStack(Stack<SDTStackItem> stack) {
 		this.stack = stack;
 	}
+
+	/**
+	 * @param tempCount the tempCount to set
+	 */
+	public void setTempCount(int tempCount) {
+		this.tempCount = tempCount;
+	}
+
+	/**
+	 * @param genList the genList to set
+	 */
+	public void setGenList(List<String> genList) {
+		this.genList = genList;
+	}
+
+	/**
+	 * @param exceptions the exceptions to set
+	 */
+	public void setExceptions(List<SDTException> exceptions) {
+		this.exceptions = exceptions;
+	}
+
+	/**
+	 * @param quadruples the quadruples to set
+	 */
+	public void setQuadruples(List<Quadruple> quadruples) {
+		this.quadruples = quadruples;
+	}
+
+	
 
 }

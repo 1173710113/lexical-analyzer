@@ -1,1 +1,13 @@
+/dfa/
+/grammarsymboltest/
+/json/
+/lexer/
+/production/
+/reader/
+/readhead/
+/regulation/
 /sdt/
+/util/
+/view/
+/xml/
+/exception/

@@ -3,7 +3,6 @@ package sdt.action;
 import java.util.ArrayList;
 import java.util.List;
 
-import exception.sdt.SDTException;
 import grammar.grammarsymbol.GrammarSymbol;
 import sdt.SDTAnalyzerState;
 import sdt.SDTStackItem;
@@ -17,7 +16,7 @@ public class Action21 extends BaseAction {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void execute(SDTAnalyzerState sdtAnalyzerState) throws SDTException {
+	public void execute(SDTAnalyzerState sdtAnalyzerState) {
 		SDTStackItem actioItem = sdtAnalyzerState.getFromTop(0);
 		SDTStackItem targetItem = sdtAnalyzerState.getFromTop(-6);
 		GrammarSymbol grammarSymbol = targetItem.getGrammarSymbol();
@@ -31,6 +30,7 @@ public class Action21 extends BaseAction {
 		targetItem.addValue(grammarSymbol.toString() + ".nextlist", nextlist);
 		sdtAnalyzerState.gen(String.format("if %s != %s goto ", sdtAnalyzerState.findTemVariant("temp"),
 				actioItem.getValue("num.lexeme")));
+		sdtAnalyzerState.addQuadruple("j!=", sdtAnalyzerState.findTemVariant("temp"), actioItem.getValue("num.lexeme"), null);
 	}
 
 }

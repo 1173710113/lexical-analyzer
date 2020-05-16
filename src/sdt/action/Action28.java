@@ -16,7 +16,16 @@ public class Action28 extends BaseAction{
 		SDTStackItem actionItem = sdtAnalyzerState.getStack().peek();
 		SDTStackItem targetItem = sdtAnalyzerState.getFromTop(-1);
 		GrammarSymbol grammarSymbol = targetItem.getGrammarSymbol();
-		targetItem.addValue(grammarSymbol.toString() + ".addr", actionItem.getValue("num.lexeme"));
+		Object lexeme = null;
+		if(actionItem.getValue("char.lexeme") != null) {
+			lexeme = actionItem.getValue("char.lexeme");
+		} else if( actionItem.getValue("num.lexeme") != null) {
+			lexeme =  actionItem.getValue("num.lexeme");
+		} else if( actionItem.getValue("real.lexeme") != null) {
+			lexeme =  actionItem.getValue("real.lexeme");
+		}
+		
+		targetItem.addValue(grammarSymbol.toString() + ".addr",lexeme);
 	}
 
 }

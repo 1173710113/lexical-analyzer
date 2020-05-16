@@ -8,8 +8,12 @@ public class ActionGenerator {
 			return new Action01(description);
 		case "a2":
 			return new Action02(description);
+		case "a3":
+			return new Action03(description);
 		case "a5":
 			return new Action05(description);
+		case "a4":
+			return new Action04(description);
 		case "a6":
 			return new Action06(description);
 		case "a7":
@@ -18,6 +22,10 @@ public class ActionGenerator {
 			return new Action08(description);
 		case "a9":
 			return new Action09(description);
+		case "a10":
+			return new Action10(description);
+		case "a11":
+			return new Action11(description);
 		case "a12":
 			return new Action12(description);
 		case "a13":
@@ -82,6 +90,12 @@ public class ActionGenerator {
 			return new Action47(description);
 		case "a48":
 			return new Action48(description);
+		case "a49":
+			return new Action49(description);
+		case "a50":
+			return new Action50(description);
+		case "a51":
+			return new Action51(description);
 		default:
 		}
 		return new BaseAction(description);

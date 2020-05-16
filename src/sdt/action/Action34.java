@@ -14,14 +14,19 @@ public class Action34 extends BaseAction {
 	}
 
 	@Override
-	public void execute(SDTAnalyzerState sdtAnalyzerState) throws NoIdentifierTableItemException {
-		SDTStackItem actionItem = sdtAnalyzerState.getStack().peek();
-		SDTStackItem targetItem = sdtAnalyzerState.getFromTop(-1);
-		GrammarSymbol grammarSymbol = targetItem.getGrammarSymbol();
-		String temp = sdtAnalyzerState.newTemp();
-		Array type = (Array) sdtAnalyzerState.findSymbol(grammarSymbol.toString() + ".addr").getType();
-		sdtAnalyzerState.gen(temp + " = " + actionItem.getValue("num.lexeme") + " * " + type.of.width);
-		targetItem.addValue(grammarSymbol.toString() + ".addr", actionItem.getValue("id.lexeme"));
+	public void execute(SDTAnalyzerState sdtAnalyzerState) {
+		try {
+			SDTStackItem actionItem = sdtAnalyzerState.getStack().peek();
+			SDTStackItem targetItem = sdtAnalyzerState.getFromTop(-1);
+			GrammarSymbol grammarSymbol = targetItem.getGrammarSymbol();
+			String temp = sdtAnalyzerState.newTemp();
+			Array type = (Array) sdtAnalyzerState.findSymbol(grammarSymbol.toString() + ".addr").getType();
+			sdtAnalyzerState.gen(temp + " = " + actionItem.getValue("num.lexeme") + " * " + type.of.width);
+			sdtAnalyzerState.addQuadruple("*", actionItem.getValue("num.lexeme"), type.of.width, temp);
+			targetItem.addValue(grammarSymbol.toString() + ".addr", actionItem.getValue("id.lexeme"));
+		} catch (NoIdentifierTableItemException e) {
+			sdtAnalyzerState.addSDTException(e);
+		}
 	}
 
 }

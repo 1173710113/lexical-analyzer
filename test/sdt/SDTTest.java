@@ -54,13 +54,28 @@ public class SDTTest {
 		List<String> inputs = new ArrayList<String>();
 		//inputs.add("int[5][2] x; x[2][1] = 5; int y; y = x[2][1]; y = y + 1;");
 		//inputs.add("int x = 5; while x < 10 do x = x + 1;");
-		inputs.add("int x = 0; switch(x){ case 1: x = x + 1; case 2: x = x + 2; default: x = 3;}");
+		//inputs.add("int x = 0; switch(x){ case 1: x = x + 1; case 2: x = x + 2; default: x = 3;}");
+		inputs.add("int m,z=0x12;");
+		inputs.add("m = 2+3*4;");
+		inputs.add("char c= 'a';");
+		inputs.add("float b = 1;");
+		inputs.add("int[2][4] h;");
+		inputs.add("int[3] a;");
+		inputs.add("a[0] = 2;");
+		inputs.add("if m <8 then m = m + 1; else m=m*2;");
+		//inputs.add("switch(m){case 1:m = m+1;case 2:m=m+3;default:m=m+6;}");
+		//inputs.add("proc int getSum(int x, int y){ int j = x; int k = y; return j+k;}");
+		//inputs.add("call getSum(1,2);");
+		//inputs.add("record stack {int num;char value;}");
+		//inputs.add("int x;int x;");
+		//inputs.add(" b = 3;");
+		//inputs.add("x[1] = 3;");
 		lexicalAnalyzer.setReadHeadFromStringList(inputs);
 		lexicalAnalyzer.lexicalAnalyse();
 		List<Token> resultToken = lexicalAnalyzer.getResultToken();
 		TerminalSymbolReadHead readHead = new TokenTerminalSymbolReadHead(resultToken);
 		SDTAnalyzer sdtAnalyzer = new SDTAnalyzer();
-		sdtAnalyzer.grammaticalAnalyse(predictingAnalysisTable, readHead, startSymbol);
+		sdtAnalyzer.analyse(predictingAnalysisTable, readHead, startSymbol);
 		
 	}
 

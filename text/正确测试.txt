@@ -18,10 +18,6 @@ switch(m){	/*switch语句的识别和应用*/
   default:
   m = m +6;
 }
-int i;
-for(i = 0;i<10;i++){  /*for语句*/
-  m = m+2;
-}
 record stack{    /*记录的声明，这里声明了一个栈结构*/
   int num;
   char value;

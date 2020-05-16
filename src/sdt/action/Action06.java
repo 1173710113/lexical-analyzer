@@ -14,6 +14,7 @@ public class Action06 extends BaseAction{
 	public void execute(SDTAnalyzerState sdtAnalyzerState)  {
 		SDTStackItem actionItem = sdtAnalyzerState.getStack().peek();
 		sdtAnalyzerState.gen(sdtAnalyzerState.findTemVariant("id") + "=" + actionItem.getValue("F.addr"));
+		sdtAnalyzerState.addQuadruple("=", actionItem.getValue("F.addr"), null, sdtAnalyzerState.findTemVariant("id"));
 	}
 
 }

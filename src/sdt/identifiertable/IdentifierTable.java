@@ -1,6 +1,8 @@
 package sdt.identifiertable;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import exception.sdt.DuplicateIdentifierItemException;
@@ -23,6 +25,28 @@ public class IdentifierTable {
 		if(map.containsKey(item.getId())) throw new DuplicateIdentifierItemException(item);
 		map.put(item.getId(), item);
 		System.out.println(item.toString());
+	}
+
+	public List<IdentifierTableItem> getTableItems(){
+		List<IdentifierTableItem> list = new ArrayList<IdentifierTableItem>();
+		for(Map.Entry<String, IdentifierTableItem> entry : map.entrySet()) {
+			list.add(entry.getValue());
+		}
+		return list;
+	}
+	
+	/**
+	 * @return the map
+	 */
+	public Map<String, IdentifierTableItem> getMap() {
+		return map;
+	}
+
+	/**
+	 * @param map the map to set
+	 */
+	public void setMap(Map<String, IdentifierTableItem> map) {
+		this.map = map;
 	}
 
 	@Override

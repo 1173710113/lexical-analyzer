@@ -19,6 +19,8 @@ public class Action30 extends BaseAction {
 		GrammarSymbol grammarSymbol = targetItem.getGrammarSymbol();
 		sdtAnalyzerState.gen(temp + " = " + actionItem.getValue("G'.addr") + " * "
 				+ targetItem.getValue(grammarSymbol.toString() + ".addr"));
+		sdtAnalyzerState.addQuadruple("*", actionItem.getValue("G'.addr"),
+				targetItem.getValue(grammarSymbol.toString() + ".addr"), temp);
 		targetItem.addValue(grammarSymbol.toString() + ".addr", temp);
 	}
 

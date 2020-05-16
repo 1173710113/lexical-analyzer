@@ -2,7 +2,6 @@ package sdt.action;
 
 import java.util.ArrayList;
 
-import exception.sdt.SDTException;
 import grammar.grammarsymbol.GrammarSymbol;
 import sdt.SDTAnalyzerState;
 import sdt.SDTStackItem;
@@ -16,7 +15,7 @@ public class Action48 extends BaseAction {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void execute(SDTAnalyzerState sdtAnalyzerState) throws SDTException {
+	public void execute(SDTAnalyzerState sdtAnalyzerState) {
 		SDTStackItem targetItem = sdtAnalyzerState.getFromTop(-1);
 		GrammarSymbol grammarSymbol = targetItem.getGrammarSymbol();
 		int quad = sdtAnalyzerState.nextQuad();

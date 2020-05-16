@@ -3,15 +3,22 @@ package view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Set;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
 
 import exception.dfa.InValidInputException;
 import exception.recognize.RecognizeException;
+import grammar.production.Production;
+import grammar.production.ProductionFactory;
 
 public class SemanticsRuleForm extends JFrame implements ActionListener{
 	
@@ -53,7 +60,20 @@ public class SemanticsRuleForm extends JFrame implements ActionListener{
 	
 	//添加语法规则数据
 	private void addData() {
-		
+		try {
+			Set<Production> productions = ProductionFactory.getProductionsFromXMLFile("text\\sdt.xml");
+			int size = productions.size();
+			regulationData = new String[size][2];
+			int count = 0;
+			for(Production p : productions) {
+				regulationData[count][0] = Integer.toString(count);
+				regulationData[count][1] = p.toString();
+				count++;
+			}
+		} catch (ParserConfigurationException | SAXException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Override

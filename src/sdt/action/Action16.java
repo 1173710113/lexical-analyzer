@@ -2,7 +2,6 @@ package sdt.action;
 
 import java.util.ArrayList;
 
-import exception.sdt.SDTException;
 import grammar.grammarsymbol.GrammarSymbol;
 import sdt.SDTAnalyzerState;
 import sdt.SDTStackItem;
@@ -16,7 +15,7 @@ public class Action16 extends BaseAction {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void execute(SDTAnalyzerState sdtAnalyzerState) throws SDTException {
+	public void execute(SDTAnalyzerState sdtAnalyzerState) {
 		SDTStackItem actionItem = sdtAnalyzerState.getFromTop(0);
 		sdtAnalyzerState.backPatch((ArrayList<Integer>) actionItem.getValue("B.truelist"),
 				(Integer) actionItem.getValue("M.quad"));
@@ -27,7 +26,7 @@ public class Action16 extends BaseAction {
 		targetItem.addValue(grammarSymbol.toString() + ".nextlist",
 				sdtAnalyzerState.merge(
 						sdtAnalyzerState.merge((ArrayList<Integer>) actionItem.getValue("S.nextlist"),
-								(ArrayList<Integer>) actionItem.getValue("N.nextlist")),
+								(ArrayList<Integer>) actionItem.getValue("O.nextlist")),
 						(ArrayList<Integer>) actionItem.getValue("S.nextlist'")));
 	}
 

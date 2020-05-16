@@ -1,6 +1,5 @@
 package sdt.action;
 
-import exception.sdt.SDTException;
 import sdt.SDTAnalyzerState;
 
 public class BaseAction implements Action {
@@ -31,11 +30,11 @@ public class BaseAction implements Action {
 
 	@Override
 	public String toString() {
-		return "BaseAction [description=" + description + "]";
+		return "{" + description + "}";
 	}
 
 	@Override
-	public void execute(SDTAnalyzerState sdtAnalyzerState) throws SDTException {
+	public void execute(SDTAnalyzerState sdtAnalyzerState) {
 		// TODO Auto-generated method stub
 
 	}

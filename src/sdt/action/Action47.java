@@ -12,6 +12,7 @@ public class Action47 extends BaseAction {
 	@Override
 	public void execute(SDTAnalyzerState sdtAnalyzerState) {
 		sdtAnalyzerState.gen("exit");
+		sdtAnalyzerState.addQuadruple("exit", null, null, null);
 		
 	}
 
